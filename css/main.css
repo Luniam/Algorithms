@@ -3,9 +3,40 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+@import url(https://fonts.googleapis.com/css?family=Roboto|Exo+2:700); /*custom google font*/
+
+/*font-family: 'Roboto', sans-serif;
+font-family: 'Exo 2', sans-serif;
+<link href='https://fonts.googleapis.com/css?family=Roboto|Exo+2:700' rel='stylesheet' type='text/css'>*/
 
 
+body {
+    font-family: 'Roboto', sans-serif;
+}
 
+/*changing the bootsrap navbar start */
+
+.navbar-custom {
+    /*background-color:#3b5998;*/
+    background-color: #28ABE3;
+    color:#3b5998;
+    border-radius:0;
+}
+
+.navbar-custom .navbar-nav > li > a {
+    color:#fff;
+}
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color:transparent;
+}
+
+.navbar-custom .navbar-nav > li > a:hover, .nav > li > a:focus { text-decoration: none;  background-color: #161693/*#33aa33*/; }
+.navbar-custom .navbar-brand {
+    color:#eeeeee;
+}
+
+/*changing the bootsrap navbar end*/
 
 
 
