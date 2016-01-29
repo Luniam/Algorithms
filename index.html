@@ -12,13 +12,19 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!-- /*<style>
+        <!-- <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'> -->
+
+        <style>
             body {
                 padding-top: 50px;
                 padding-bottom: 20px;
-                background-color: #E0E4CC;
+                /*background-color: #E0E4CC;*/
             }
-        </style>*/ -->
+
+            /*h1 {
+                font-family: 'Pacifico', cursive;
+            }*/
+        </style>
         <!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" href="css/main.css">
 
@@ -32,7 +38,7 @@
 
         <!-- navbar start -->
 
-        <nav class="navbar navbar-fixed-top navbar-custom">
+        <nav class="navbar navbar-fixed-top navbar-default navbar-custom">
               <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -49,7 +55,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
+                    <li class="active"><a href="#">Link</a></li>
                   </ul>
                   
                   <!-- <ul class="nav navbar-nav navbar-right">
@@ -65,13 +71,84 @@
 
         <!-- container start -->
 
-        <div class = "container page-content">
+        <div class="container page-content">
 
-
+            <div class="row">
+                <div class="col-md-4"><img src="img/petersenblue1.svg" class="petersengraph"></div>
+                <div class="col-md-4"><img src="img/petersenred1.svg" class="petersengraph"></div> 
+                <div class="col-md-4"><img src="img/petersenblue2.svg" class="petersengraph"></div>
+            </div>
 
         </div>
 
         <!-- container end -->
+
+        <footer class="footer">
+            <div class="container">
+                <a href="" data-toggle="modal" data-target="#aboutmodal">About</a>
+                <div id="aboutmodal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog modal-lg">
+
+                    
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2>About</h2>
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </p>
+                            </div>
+                        </div>
+                    
+                  </div>
+                </div>
+
+                <a href="" data-toggle="modal" data-target="#licensemodal">License</a>
+                <div id="licensemodal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                  <div class="modal-dialog modal-lg">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2>License</h2>
+                            </div>
+                            <div class="panel-body">
+                                <p>
+                                    The MIT License (MIT)
+                                </p>
+                                <p>
+                                    Copyright (c) 2016 Mainul Islam Mahi
+
+                                </p>
+                                <p>
+                                    Permission is hereby granted, free of charge, to any person obtaining a copy
+                                    of this software and associated documentation files (the "Software"), to deal
+                                    in the Software without restriction, including without limitation the rights
+                                    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                                    copies of the Software, and to permit persons to whom the Software is
+                                    furnished to do so, subject to the following conditions:
+                                </p>
+
+                                <p>
+                                    The above copyright notice and this permission notice shall be included in all
+                                    copies or substantial portions of the Software.
+                                </p>
+                                <p>
+                                    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                                    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                                    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                                    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                                    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                                    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                                    SOFTWARE.
+                                </p>
+                            </div>
+                        </div>
+                    
+                  </div>
+                </div>
+            </div>
+        </footer>
 
       
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

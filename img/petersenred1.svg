@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+<svg id="Petersen_graph" xmlns="http://www.w3.org/2000/svg" width="220" version="1.1" height="220" viewBox="0,0 10352,9862.6">
+ <g transform="translate(176,176)">
+  <path stroke="#000" stroke-width="80" d="m1e4 3632.7l-1666.7 541.5m-243.1 5336.4l-1030.1-1417.8m-5150.3 1417.8l1030.1-1417.8m-2939.9-4460.1l1666.7 541.5"/>
+  <polyline stroke-width="80" stroke="#000" points="5e3 0 1e4 3632.7 8090.2 9510.6 1909.8 9510.6 0 3632.7 5e3 0 5e3 1752.4 7060.1 8092.8 1666.7 4174.2 8333.3 4174.2 2939.9 8092.8 5e3 1752.4" fill="none"/>
+  <g fill="red">
+   <circle cx="5e3" cy="0" r="176"/>
+   <circle cx="5e3" cy="1752.4" r="176"/>
+   <circle cx="1e4" cy="3632.7" r="176"/>
+   <circle cx="8333.3" cy="4174.2" r="176"/>
+   <circle cx="8090.2" cy="9510.6" r="176"/>
+   <circle cx="7060.1" cy="8092.8" r="176"/>
+   <circle cx="1909.8" cy="9510.6" r="176"/>
+   <circle cx="2939.9" cy="8092.8" r="176"/>
+   <circle cx="0" cy="3632.7" r="176"/>
+   <circle cx="1666.7" cy="4174.2" r="176"/>
+  </g>
+ </g>
+</svg>
