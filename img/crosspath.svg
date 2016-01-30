@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="220px" height="220px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
+<line fill="none" stroke="#000000" stroke-width="3" x1="250" y1="28.62" x2="250" y2="352"/>
+<path fill="none" stroke="#000000" stroke-width="3" d="M164.994,290.24C133.105,388.387,387.541,451.93,387.541,451.93"/>
+<circle fill="#FFFFFF" cx="250" cy="400.83" r="9"/>
+<circle fill="#FFFFFF" cx="250" cy="190.311" r="9"/>
+<polygon fill="none" stroke="#000000" stroke-width="3" points="112.457,451.93 27.453,190.311 250,28.62 472.547,190.311
+	387.541,451.93 "/>
+<polygon fill="none" stroke="#000000" stroke-width="3" points="197.465,190.311 302.535,190.311 335.006,290.24 250,352
+	164.994,290.24 "/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="302.535" y1="190.311" x2="464.707" y2="190.311"/>
+<line fill="none" stroke="#000000" stroke-width="3" x1="27.453" y1="190.311" x2="197.465" y2="190.311"/>
+<path fill="none" stroke="#000000" stroke-width="3" d="M120.59,446.023"/>
+<path fill="none" stroke="#000000" stroke-width="3" d="M335.006,290.24"/>
+<path fill="none" stroke="#000000" stroke-width="3" d="M335.006,290.24c31.889,98.146-222.547,161.689-222.547,161.689"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="27.453" cy="190.311" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="197.465" cy="190.311" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="302.535" cy="190.311" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="250" cy="28.62" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="472.547" cy="190.311" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="335.006" cy="290.24" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="250" cy="352" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="164.994" cy="290.24" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="112.457" cy="451.93" r="12"/>
+<circle fill="#0000FF" stroke="#000000" stroke-width="3" cx="387.541" cy="451.93" r="12"/>
+</svg>
