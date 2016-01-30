@@ -12,7 +12,7 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!-- <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'> -->
+        <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 
         <style>
             body {
@@ -21,9 +21,9 @@
                 /*background-color: #E0E4CC;*/
             }
 
-            /*h1 {
-                font-family: 'Pacifico', cursive;
-            }*/
+            h1 {
+                font-family: 'Pacifico', Roboto;
+            }
         </style>
         <!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" href="css/main.css">
@@ -71,21 +71,27 @@
 
         <!-- container start -->
 
-        <div class="container page-content">
+        <div class="container-fluid graph">
 
             <div class="row">
-                <div class="col-md-4"><img src="img/petersenblue1.svg" class="petersengraph"></div>
-                <div class="col-md-4"><img src="img/petersenblue2.svg" class="petersengraph"></div>
-                <div class="col-md-4"><img src="img/crosspath.svg" class="petersengraph"></div> 
+                <div class="col-md-4"><img src="img/petersenblue1.svg" class="petersengraph img-responsive" style="margin: 0 auto;"></div>
+                <div class="col-md-4"><img src="img/petersenblue2.svg" class="petersengraph img-responsive" style="margin: 0 auto;"></div>
+                <div class="col-md-4"><img src="img/crosspath.svg" class="petersengraph img-responsive" style="margin: 0 auto;"></div> 
             </div>
 
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <h1 style="text-align:center;">Algorithms in animation</h1>
+            </div>
         </div>
 
         <!-- container end -->
 
         <footer class="footer">
             <div class="container">
-                <a href="" data-toggle="modal" data-target="#aboutmodal">About</a>
+                <a href="" data-toggle="modal" data-target="#aboutmodal" class="footerlink">About</a>
                 <div id="aboutmodal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                   <div class="modal-dialog modal-lg">
 
@@ -104,7 +110,7 @@
                   </div>
                 </div>
 
-                <a href="" data-toggle="modal" data-target="#licensemodal">License</a>
+                <a href="" data-toggle="modal" data-target="#licensemodal" class="footerlink">License</a>
                 <div id="licensemodal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                   <div class="modal-dialog modal-lg">
 
@@ -151,7 +157,7 @@
         </footer>
 
       
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
