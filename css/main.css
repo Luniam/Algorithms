@@ -30,10 +30,14 @@ body {
   background-color: #F3F3F3;
 }
 
+.footer-modal {
+    font-size: 1.05em;
+}
+
 /*changing font family end*/
 
 
-/*adding padding on top of petersen graph start*/
+/*adding padding on top of petersen graph start and rotating them*/
 
 .petersengraph {
     margin-top: 20px;
@@ -46,6 +50,12 @@ body {
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.graph {
+    background-color: #AC4057;
+    padding-top: 10px;
+}
+
 /*adding padding on top of petersen graph end*/
 
 
@@ -81,11 +91,15 @@ body {
     color:#E7E7E7;
 }
 
-/*changing the bootsrap navbar end*/
-
-.graph {
-    background-color: #AC4057;
+.navbar-default .navbar-brand {
+    color:#E7E7E7;
 }
+
+.navbar-custom .navbar-brand:hover {
+    color:#E7E7E7;
+}
+
+/*changing the bootsrap navbar end*/
 
 .footerlink {
     padding-left: 5px;
@@ -93,27 +107,94 @@ body {
 }
 
 
+/*responsive svg start*/
+
+
+.svg-containers {
+    margin: 0 auto;
+    /*width: 100%;*/
+    /*border: 3px solid #73AD21;*/
+    padding: 10px;
+    /*font-family: 'Exo 2', sans-serif;*/
+}
+
+.svg-content-responsives {
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    padding: 10px;
+}
 
 /*responsive svg start*/
 
-.svg-container {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%; /* aspect ratio */
-    vertical-align: top;
-    overflow: hidden;
-}
-.svg-content-responsive {
-    display: inline-block;
-    position: absolute;
-    top: 10px;
-    left: 0;
+/*styles for the left sidebar*/
+
+.leftSidebar {
+    background-color: #28ABE3;
+    color: white;
 }
 
-/*responsive svg end*/
+li.bar {
+    font-size: 1.05em;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    padding-left: 5px;
+}
+
+li.bar:hover {
+    cursor: pointer;
+}
+
+/*styles for the left sidebar*/
 
 
 
+/*jquery ui slider*/
 
+.ui-slider-horizontal {
+    background-color: #28ABE3;
+    height: 0.5em;
+}
 
+.ui-slider-handle {
+    background-color: #000000;
+    height: 0.5em;
+}
+
+.ui-slider-handle:hover {
+    cursor: pointer;
+}
+
+.speedTag {
+    font-size: 1em;
+    font-family: 'Exo 2';
+    margin: auto;
+}
+
+#speedbar {
+    margin-top: 5px;
+}
+
+/*jquery ui slider*/
+
+/*jquery ui progressbar*/
+
+.ui-progressbar {
+    background-color: #a6a6a6;
+    height: 1em;
+}
+
+.ui-progressbar .ui-progressbar-value {
+    background-color: #28ABE3;
+    height: 1.25em;
+}
+
+.playpause {
+    font-size: 1.25em;
+}
+
+.playpause:hover {
+    cursor: pointer;
+}
+
+/*jquery ui progressbar*/

@@ -1,2 +1,2 @@
-python closure.py example
+python closure.py drawgraph
 PAUSE

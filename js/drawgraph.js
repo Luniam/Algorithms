@@ -14,13 +14,14 @@ draw.output = (function() {
 
         svgNode = d3.select(pageId)
                       .append("div")
-                          .classed("svg-container", true)
+                          .classed("svg-containers", true)
+                          .classed("col-md-8", true)
                           .append('svg')
                               .attr({
                                   "preserveAspectRatio" : "xMinYMin meet",
-                                  "viewBox" : "0 0 600 400"
+                                  "viewBox" : "0 0 900 500"
                               })
-                              .classed("svg-content-responsive", true);
+                              .classed("svg-content-responsives", true);
 
         vertexNode = d3.select("svg")
                         .append("g")
@@ -35,13 +36,13 @@ draw.output = (function() {
 
                                         "cy" : function(d) {
                                             return d.yVal;
-                                        }
+                                        },
 
                                         "r" : graph.radius
                                     })
                                     .style({
                                         "fill" : "#FFFFFF",
-                                        "stroke" "#C61C6F",
+                                        "stroke" : "#C61C6F",
                                         "stroke-width" : 2.5
                                     });
 
@@ -50,7 +51,7 @@ draw.output = (function() {
                        .append("g")
                            .attr("id", "texts")
                            .selectAll("text")
-                               .data(graphData[0]).enter()
+                               .data(graph.graphData[0]).enter()
                                .append("text")
                                    .attr({
                                         "x" : function(d) {
@@ -61,7 +62,8 @@ draw.output = (function() {
                                             return (d.yVal + 5.3333);
                                         },
 
-                                        "font-weight" : "bold"
+                                        "font-weight" : "bold",
+                                        "font-size" : "1.15em"
                                    })
                                    .text(function(d) {
                                         return d.value;
@@ -82,10 +84,10 @@ draw.output = (function() {
                             .attr("id", "edges")
 
 
-        graph.graphData.edgeData.map(function(d) { //drawing the edges
+        graph.graphData[1].map(function(d) { //drawing the edges
             var twoCircles = [];
-            twoCircles.push(graph.vertexData[d.from]);
-            twoCircles.push(graph.vertexData[d.to]);
+            twoCircles.push(graph.graphData[0][d.from]);
+            twoCircles.push(graph.graphData[0][d.to]);
 
             var points = getThePoints(twoCircles); //function from geom.js
 
@@ -116,16 +118,23 @@ draw.output = (function() {
             .attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
             .transition()
-            .duration(450)
+            .duration(500)
             .ease("linear")
             .attr("stroke-dashoffset", 0);
 
         });
 
+        return [svgNode, vertexNode, edgeNode, textNode];
+
+    }
+
+    function removeGraph(svgNodeToRemove) {
+        svgNodeToRemove.remove();
     }
 
     return {
-        drawGraph : drawGraph
+        drawGraph : drawGraph,
+        removeGraph : removeGraph
     }
     
 }()); 
