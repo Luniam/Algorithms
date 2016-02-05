@@ -1,8 +1,32 @@
-/*dependencies : jquery jquery-ui */
+/*dependencies : jquery jquery-ui drawgraph */
 
 var ui = ui || {}
 
 ui.output = (function() {
+
+    var defaultGraph = 1;
+    var graph;
+    var graphNodes;
+    var speedbarValue;
+    var speed = 1100; /* in milliseconds*/
+
+    var playing = 1;
+    var paused = 0;
+
+    var playState = paused;
+
+
+    function get_graph() {
+        return graph;
+    }
+
+    function get_playState() {
+        return playState;
+    }
+
+    function get_graphNodes() {
+        return graphNodes;
+    }
 
 
     function drawSpeedBar(pageId) {
@@ -37,11 +61,43 @@ ui.output = (function() {
         });
     }
 
+    function pageLoad(vizId, speedbarId, progressbarId) {
+
+        if (defaultGraph == 1) { //from sampleGraphs.js
+            graph = new Graph(sampleGraph1); //Graph.js
+            graph.init(); // ALWAYS CALL "init" AFTER CREATING THE GRAPH
+        }
+
+        graphNodes = draw.output.drawGraph(graph, vizId); // from drawgraph.js
+        drawSpeedBar(speedbarId);
+        speedbarValue = getSpeedBarValue(speedbarId);
+        drawProgressBar(progressbarId);
+    }
+
+    function redrawGraph(graph, node, id) {
+        draw.output.removeGraph(node);        
+    }
+
+    function togglePlayButton() {
+        if (playState == paused) {
+            playState = playing;
+            $(this).removeClass("glyphicon glyphicon-play playpause");
+            $(this).addClass("glyphicon glyphicon-pause playpause");
+        }
+
+        else {
+            playState = paused;
+            $(this).removeClass("glyphicon glyphicon-pause playpause");
+            $(this).addClass("glyphicon glyphicon-play playpause");
+        }
+    }
+
     return {
-        drawSpeedBar : drawSpeedBar,
-        getSpeedBarValue : getSpeedBarValue,
-        drawProgressBar : drawProgressBar,
-        getSpeedInMilliseconds : getSpeedInMilliseconds
+        pageLoad : pageLoad,
+        togglePlayButton : togglePlayButton,
+        graph : get_graph,
+        playState : get_playState,
+        graphNodes : get_graphNodes
     }
 
 }());

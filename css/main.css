@@ -198,3 +198,22 @@ li.bar:hover {
 }
 
 /*jquery ui progressbar*/
+
+.hid {
+    display: none;
+}
+
+.barslide {
+    font-size: 1.05em;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-left: 5px;
+}
+
+.runbutton {
+    cursor: pointer;
+}
+
+.runner {
+    padding-bottom: 5px;
+}

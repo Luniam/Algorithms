@@ -6,53 +6,31 @@ $(document).ready(startfn);
 
 function startfn() {
 
-    var defaultGraph = 1;
-    var graph;
-    var graphNodes;
-    var speedbarValue;
-    var speed = 1100; /* in milliseconds*/
+    ui.output.pageLoad("#viz", "#speedbar", "#progressbar");
 
-    var playing = 1;
-    var paused = 0;
 
-    var playState = paused;
-
-    pageLoad();
-
-    function pageLoad() {
-
-        if (defaultGraph == 1) { //from sampleGraphs.js
-            graph = new Graph(sampleGraph1); //Graph.js
-            graph.init(); // ALWAYS CALL "init" AFTER CREATING THE GRAPH
-        }
-
-        graphNodes = draw.output.drawGraph(graph, "#viz"); // from drawgraph.js
-        ui.output.drawSpeedBar("#speedbar"); // from ui.js
-        speedbarValue = ui.output.getSpeedBarValue("#speedbar");
-        ui.output.drawProgressBar("#progressbar");
+    function selectSource() {
+        $("#slide").toggle("slide");
     }
 
 
-    function redrawGraph(graph, node, id) {
-        draw.output.removeGraph(node);        
+    function bfsgo() {
+
+        var source = +$("#sourceInput").val();
+        selectSource();
+        bfs(ui.output.graph(), ui.output.graphNodes(), source);
     }
 
-    function togglePlay() {
-        if (playState == paused) {
-            playState = playing;
-            $(this).removeClass("glyphicon glyphicon-play playpause");
-            $(this).addClass("glyphicon glyphicon-pause playpause");
-        }
-
-        else {
-            playState = paused;
-            $(this).removeClass("glyphicon glyphicon-pause playpause");
-            $(this).addClass("glyphicon glyphicon-play playpause");
-        }
+    function bfs(graph, graphNodes, s) {
+        var vertex = "#vertex" + s;
     }
 
     /*event handlers*/
 
-    $("#play").on("click", togglePlay);
+    $("#play").on("click", ui.output.togglePlayButton);
+
+    $("#runBFS").on("click", selectSource);
+
+    $("#startBFS").on("click", bfsgo);
 
 }

@@ -38,7 +38,11 @@ draw.output = (function() {
                                             return d.yVal;
                                         },
 
-                                        "r" : graph.radius
+                                        "r" : graph.radius,
+
+                                        "id" : function(d) {
+                                            return "vertex" + d.value;
+                                        }
                                     })
                                     .style({
                                         "fill" : "#FFFFFF",
@@ -60,6 +64,10 @@ draw.output = (function() {
 
                                         "y" : function(d) {
                                             return (d.yVal + 5.3333);
+                                        },
+
+                                        "id" : function(d) {
+                                            return "text" + d.value;
                                         },
 
                                         "font-weight" : "bold",
@@ -107,7 +115,8 @@ draw.output = (function() {
                                         "d" : line(newPoints),
                                         "stroke" : "#000000",
                                         "stroke-width" : 2,
-                                        "fill" : "none"
+                                        "fill" : "none",
+                                        "id" : (d.from + "" + d.to)
                                    });
 
             //animate the path creation
@@ -134,7 +143,7 @@ draw.output = (function() {
 
     return {
         drawGraph : drawGraph,
-        removeGraph : removeGraph
+        removeGraph : removeGraph,
     }
     
 }()); 
