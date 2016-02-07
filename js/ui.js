@@ -1,6 +1,6 @@
 /*dependencies : jquery jquery-ui drawgraph */
 
-var ui = ui || {}
+var ui = ui || {};
 
 ui.output = (function() {
 
@@ -10,18 +10,15 @@ ui.output = (function() {
     var speedbarValue;
     var speed = 1100; /* in milliseconds*/
 
-    var playing = 1;
-    var paused = 0;
+    /*boolean values*/
+    var directedGraph = 1;
+    var undirectedGraph = 0;
+    /*boolean values*/
 
-    var playState = paused;
-
+    var graphType = undirectedGraph;
 
     function get_graph() {
         return graph;
-    }
-
-    function get_playState() {
-        return playState;
     }
 
     function get_graphNodes() {
@@ -37,7 +34,7 @@ ui.output = (function() {
     }
 
     function getSpeedBarValue(pageId) {
-        return $(pageId).slider("option", "value");
+        return +$(pageId).slider("option", "value");
     }
 
     function getSpeedInMilliseconds(tempValue) {
@@ -51,21 +48,20 @@ ui.output = (function() {
 
         var computed = (tempValue*perDivision) + lowVal;
 
-        return computed;
+        return (2150 - computed);
 
     }
 
     function drawProgressBar(pageId) {
         $(pageId).progressbar({
-            value : 0
+            value : 39
         });
     }
 
     function pageLoad(vizId, speedbarId, progressbarId) {
 
-        if (defaultGraph == 1) { //from sampleGraphs.js
+        if (defaultGraph == 1 && graphType == undirectedGraph) { //from sampleGraphs.js
             graph = new Graph(sampleGraph1); //Graph.js
-            graph.init(); // ALWAYS CALL "init" AFTER CREATING THE GRAPH
         }
 
         graphNodes = draw.output.drawGraph(graph, vizId); // from drawgraph.js
@@ -78,25 +74,9 @@ ui.output = (function() {
         draw.output.removeGraph(node);        
     }
 
-    function togglePlayButton() {
-        if (playState == paused) {
-            playState = playing;
-            $(this).removeClass("glyphicon glyphicon-play playpause");
-            $(this).addClass("glyphicon glyphicon-pause playpause");
-        }
-
-        else {
-            playState = paused;
-            $(this).removeClass("glyphicon glyphicon-pause playpause");
-            $(this).addClass("glyphicon glyphicon-play playpause");
-        }
-    }
-
     return {
         pageLoad : pageLoad,
-        togglePlayButton : togglePlayButton,
         graph : get_graph,
-        playState : get_playState,
         graphNodes : get_graphNodes
     }
 

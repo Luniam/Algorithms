@@ -127,7 +127,7 @@ draw.output = (function() {
             .attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
             .transition()
-            .duration(500)
+            .duration(300)
             .ease("linear")
             .attr("stroke-dashoffset", 0);
 

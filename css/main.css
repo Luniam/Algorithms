@@ -167,8 +167,7 @@ li.bar:hover {
 
 .speedTag {
     font-size: 1em;
-    font-family: 'Exo 2';
-    margin: auto;
+    font-family: 'Exo 2', 'Roboto';
 }
 
 #speedbar {
@@ -215,5 +214,5 @@ li.bar:hover {
 }
 
 .runner {
-    padding-bottom: 5px;
+    padding-bottom: 6px;
 }

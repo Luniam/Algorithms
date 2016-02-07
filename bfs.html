@@ -71,15 +71,17 @@
                 <div class = "col-md-4">
                     
                     <div class="row">
+                        
                         <div class="col-md-4">
                             <ul class="nav nav-pills nav-stacked leftSidebar">
                               <li id="runBFS" role="presentation" class="bar">BFS</li>
                               <li role="presentation" class="bar">DFS</li>
+                              <li role="presentation" class="bar">Sample Graphs</li>
                             </ul>
                         </div>
 
 
-                        <div class="col-md-4 hid" id="slide">
+                        <div class="col-md-5 hid" id="slide">
                             <div class="row">
                                 <input class="selectSource col-md-9 barslide" id="sourceInput"></input>
                                 <div class="runbutton" id="startBFS">
@@ -88,6 +90,7 @@
                             </div>
                         </div>
 
+                        <!-- 3 columns left -->
 
                     </div>
 
@@ -105,9 +108,9 @@
 
                         <div id="speedbarContainer" class="col-md-4">
                             <div class="row">
-                                <span class="speedTag col-md-3">slower</span>
-                                <div id="speedbar" class="col-md-6"></div>
-                                <span class="speedTag col-md-3">faster</span>
+                                <div class="col-md-3 col-xs-3 speedTag"><span>slower</span></div>
+                                <div id="speedbar" class="col-md-6 col-xs-6"></div>
+                                <div class="speedTag col-md-3 col-xs-3"><span>faster</span></div>
                             </div>
                         </div>
 
@@ -119,9 +122,9 @@
                     <div class="row">
                         <div class="col-md-offset-4 col-md-8">
                             <div class="row">
-                                <div class="col-md-offset-3 col-md-3"><span class="glyphicon glyphicon-step-backward playpause" id="backward"></span></div>
-                                <div class="col-md-3"><span class="glyphicon glyphicon-play playpause" id="play"></span></div>
-                                <div class="col-md-3"><span class="glyphicon glyphicon-step-forward playpause" id="forward"></span></div>
+                                <div class="col-md-offset-3 col-md-3 col-xs-offset-2 col-xs-3"><span class="glyphicon glyphicon-step-backward playpause" id="backward"></span></div>
+                                <div class="col-md-3 col-xs-3"><span class="glyphicon glyphicon-play playpause" id="play"></span></div>
+                                <div class="col-md-3 col-xs-3"><span class="glyphicon glyphicon-step-forward playpause" id="forward"></span></div>
                             </div>
                         </div>
                     </div>
@@ -146,6 +149,7 @@
         <script src="js/sampleGraphs.js"></script>
         <script src="js/Graph.js"></script>
         <script src="js/geom.js"></script>
+        <script src="js/q.js"></script>
         <script src="js/drawgraph.js"></script>
         <script src="js/ui.js"></script>
         <script src="js/bfs.js"></script>
