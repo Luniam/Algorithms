@@ -16,7 +16,7 @@ function startfn() {
     ui.output.pageLoad("#viz", "#speedbar", "#progressbar");
 
     function togglePlayButton() {
-        if (playState == paused) {
+        if (playState == paused || playState == notStarted) {
             playState = playing;
             $(this).removeClass("glyphicon glyphicon-play playpause");
             $(this).addClass("glyphicon glyphicon-pause playpause");
@@ -41,7 +41,7 @@ function startfn() {
     }
 
     function bfs(G, graphNodes, s) {
-        var vertex = "#vertex" + s;
+        
         var white = "WHITE";
         var gray = "GRAY";
         var black = "BLACK";
@@ -61,8 +61,23 @@ function startfn() {
         var q = new Queue(); // from  q.js
         q.enqueue(s);
 
+        var delayValue = 1;
         while(q.size() > 0) {
             var u = q.dequeue();
+            var vertex = "#vertex" + u;
+            var text = "#text" + u;
+
+            d3.select(vertex).transition().style({
+                "fill" : "#F38630",
+                "stroke" : "#F38630"
+            }).delay(delayValue * 1000).duration(1000);
+
+            d3.select(text).transition().style({
+                "fill" : "white"
+            }).delay(delayValue * 1000).duration(1000);
+
+            delayValue++;
+
             var adj = G.getAdj(u);
 
             for(var i = 0; i < adj.length; i++) {
@@ -92,5 +107,5 @@ function startfn() {
 
     $("#runBFS").on("click", selectSourceButton);
 
-    $("#startBFS").on("click", bfsgo);
+    $("#startBFS").on("click", bfsgo); //start main bfs
 }
