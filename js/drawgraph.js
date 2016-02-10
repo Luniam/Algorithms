@@ -116,7 +116,7 @@ draw.output = (function() {
                                         "stroke" : "#000000",
                                         "stroke-width" : 2,
                                         "fill" : "none",
-                                        "id" : (d.from + "" + d.to)
+                                        "id" : ("edge" + d.from + "" + d.to)
                                    });
 
             //animate the path creation

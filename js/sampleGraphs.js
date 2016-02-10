@@ -53,6 +53,18 @@ var vertexData1 = [
     xVal : 450,
     yVal : 400,
     value : 8
+  },
+
+  {
+    xVal : 500,
+    yVal : 300,
+    value : 9
+  },
+
+  {
+    xVal : 580,
+    yVal : 300,
+    value : 10
   }
 
 ];
@@ -131,8 +143,26 @@ var edgeData1 = [
     },
 
     {
+        from : 5,
+        to : 8,
+        weight : 0
+    },
+
+    {
+        from : 5,
+        to : 9,
+        weight : 0
+    },
+
+    {
         from : 8,
-        to : 5,
+        to : 9,
+        weight : 0
+    },
+
+    {
+        from : 9,
+        to : 10,
         weight : 0
     }
 ];
