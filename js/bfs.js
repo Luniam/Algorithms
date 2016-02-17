@@ -80,8 +80,17 @@ function startfn() {
         var q = new Queue(); // from  q.js
         q.enqueue(s);
 
-        var delayValue = 1;
-        var edgeDelayValue = 1.5;
+
+        // animation delay and increase values start
+
+        var delayValue = 700;
+
+        var dequeueValueIncrease = 700;
+        var vertexValueIncrease = 350;
+        var edgeValueIncrease = 400;
+
+        // animation delay and increase values end
+
         while(q.size() > 0) {
             var u = q.dequeue();
             var vertex = "#vertex" + u;
@@ -90,13 +99,12 @@ function startfn() {
             d3.select(vertex).transition().style({
                 "fill" : "#F38630",
                 "stroke" : "#F38630"
-            }).delay(delayValue * 500).duration(1000);
+            }).delay(delayValue).duration(1000);
 
             d3.select(text).transition().style({
                 "fill" : "rgb(255, 255, 255)"
-            }).delay(delayValue * 500).duration(1000);
+            }).delay(delayValue).duration(1000);
 
-            delayValue++;
 
             var adj = G.getAdj(u);
 
@@ -112,18 +120,21 @@ function startfn() {
 
                     else {edge = edge + v + u;}
 
+                    delayValue+=edgeValueIncrease;
+
                     d3.select(edge).transition().style({
                         "stroke" : "rgb(0, 128, 0)",
                         "stroke-width" : 5
-                    }).delay(edgeDelayValue * 500).duration(1000);
+                    }).delay(delayValue).duration(1000);
 
-                    edgeDelayValue++;
+                    delayValue+=vertexValueIncrease;
 
                     var vertex2 = "#vertex" + v;
-                    /*d3.select(vertex2).transition().style({
-                        "fill" : "rgb(0, 128, 0)",
-                        "stroke" : "rgb(0, 128, 0)"
-                    }).delay(delayValue * 500).duration(1000);*/
+                    
+                    d3.select(vertex2).transition().style({
+                        "fill" : "#808080",
+                        "stroke" : "#808080"
+                    }).delay(delayValue).duration(1000);
 
                     G.colors[v] = gray;
                     G.d[v] = G.d[u] + 1;
@@ -133,6 +144,8 @@ function startfn() {
             }
 
             G.colors[u] = black;
+
+            delayValue+=dequeueValueIncrease;
         }
         played = true;
     }
