@@ -74,10 +74,43 @@ ui.output = (function() {
         draw.output.removeGraph(node);        
     }
 
+    function resetGraph(G) {
+
+        for(var i = 0; i < G.V(); i++) {
+            var vertex = "#vertex" + i;
+            var text = "#text" + i;
+            d3.select(vertex).transition().style({
+                "fill" : "#FFFFFF",
+                "stroke" : "#C61C6F"
+            }).duration(300);
+
+            d3.select(text).transition().style({
+                "fill" : "#000000"
+            }).duration(300);
+
+            var adj = G.getAdj(i);
+
+            for(var j = 0; j < adj.length; j++) {
+                var v = adj[j];
+                var edge = "#edge";
+
+                if(v > i) { //making sure that I am not resetting the same edge twice
+                    edge = edge + i + v;
+                    d3.select(edge).transition().style({
+                        "stroke" : "#000000",
+                        "stroke-width" : 2
+                    }).duration(300);
+                }
+            }
+        }
+
+    }
+
     return {
         pageLoad : pageLoad,
         graph : get_graph,
-        graphNodes : get_graphNodes
+        graphNodes : get_graphNodes,
+        resetGraph : resetGraph
     }
 
 }());

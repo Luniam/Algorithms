@@ -63,8 +63,6 @@ body {
 /*changing the bootsrap navbar start */
 
 .navbar-custom {
-    /*background-color:#3b5998;*/
-    /*background-color: #28ABE3;*/
     background-color: #294860;
     color:#3b5998;
     border-radius:0;
@@ -110,7 +108,7 @@ body {
 /*responsive svg start*/
 
 
-.svg-containers {
+.svg-container {
     margin: 0 auto;
     /*width: 100%;*/
     /*border: 3px solid #73AD21;*/
@@ -118,7 +116,7 @@ body {
     /*font-family: 'Exo 2', sans-serif;*/
 }
 
-.svg-content-responsives {
+.svg-content-responsive {
     margin: 0 auto;
     padding: 0;
     width: 100%;
@@ -202,9 +200,12 @@ li.bar:hover {
     display: none;
 }
 
+.transparent {
+    opacity: 0;
+}
+
 .barslide {
     font-size: 1.05em;
-    margin-bottom: 20px;
     margin-top: 20px;
     padding-left: 5px;
 }
@@ -215,4 +216,8 @@ li.bar:hover {
 
 .runner {
     padding-bottom: 6px;
+}
+
+.thirdelem {
+    padding-top: 90px;
 }

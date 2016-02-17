@@ -76,18 +76,37 @@
                             <ul class="nav nav-pills nav-stacked leftSidebar">
                               <li id="runBFS" role="presentation" class="bar">BFS</li>
                               <li role="presentation" class="bar">DFS</li>
-                              <li role="presentation" class="bar">Sample Graphs</li>
+                              <li id="samples" role="presentation" class="bar">Sample Graphs</li>
                             </ul>
                         </div>
 
 
-                        <div class="col-md-5 hid" id="slide">
-                            <div class="row">
-                                <input class="selectSource col-md-9 barslide" id="sourceInput"></input>
+                        <div class="col-md-5">
+
+                            <div class="row hid" id="slide">
+                                <input class="col-md-9 barslide" id="sourceInput"></input>
                                 <div class="runbutton" id="startBFS">
                                     <span class="col-md-3 leftSidebar barslide runner" data-toggle="tooltip" data-placement="bottom" title="Select a source and run BFS">Run</span>
                                 </div>
                             </div>
+                            
+                            <!-- dummy row start -->
+                            <!-- <div class="row hid" id="slide2">
+                                <input class="col-md-9 barslide"></input>
+                                <div class="runbutton">
+                                    <span class="col-md-3 leftSidebar barslide runner">Run2</span>
+                                </div>
+                            </div> -->
+                            <!-- dummy row end-->
+
+                            <div class="row hid thirdelem" id="slide3">
+                                <div class="runbutton">
+                                    <span id ="graph1" class="col-md-4 leftSidebar barslide runner">graph1</span>
+                                    <span id ="graph2" class="col-md-4 leftSidebar barslide runner">graph2</span>
+                                    <span id ="graph3" class="col-md-4 leftSidebar barslide runner">graph3</span>
+                                </div>
+                            </div>
+
                         </div>
 
                         <!-- 3 columns left -->

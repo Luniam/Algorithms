@@ -14,14 +14,14 @@ draw.output = (function() {
 
         svgNode = d3.select(pageId)
                       .append("div")
-                          .classed("svg-containers", true)
+                          .classed("svg-container", true)
                           .classed("col-md-8", true)
                           .append('svg')
                               .attr({
                                   "preserveAspectRatio" : "xMinYMin meet",
                                   "viewBox" : "0 0 900 500"
                               })
-                              .classed("svg-content-responsives", true);
+                              .classed("svg-content-responsive", true);
 
         vertexNode = d3.select("svg")
                         .append("g")

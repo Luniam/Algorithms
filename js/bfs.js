@@ -38,6 +38,10 @@ function startfn() {
         $("#slide").toggle("slide");
     }
 
+    function chooseSampleGraph() {
+        $("#slide3").toggle("slide");
+    }
+
     function bfsgo() {
 
         var source = +$("#sourceInput").val();
@@ -46,9 +50,15 @@ function startfn() {
     }
 
     function bfs(G, graphNodes, s) {
-        
+
+        if(s > G.V()-1 || s < 0) {
+            var temp = G.V()-1;
+            alert("please select a source between 0 and " + temp);
+            return;
+        }
+
         if (played) {
-            resetGraph(G);
+            ui.output.resetGraph(G);
         }
 
         var white = "WHITE";
@@ -80,11 +90,11 @@ function startfn() {
             d3.select(vertex).transition().style({
                 "fill" : "#F38630",
                 "stroke" : "#F38630"
-            }).delay(delayValue * 900).duration(1000);
+            }).delay(delayValue * 500).duration(1000);
 
             d3.select(text).transition().style({
                 "fill" : "rgb(255, 255, 255)"
-            }).delay(delayValue * 900).duration(1000);
+            }).delay(delayValue * 500).duration(1000);
 
             delayValue++;
 
@@ -105,15 +115,15 @@ function startfn() {
                     d3.select(edge).transition().style({
                         "stroke" : "rgb(0, 128, 0)",
                         "stroke-width" : 5
-                    }).delay(edgeDelayValue * 900).duration(1000);
+                    }).delay(edgeDelayValue * 500).duration(1000);
 
                     edgeDelayValue++;
 
                     var vertex2 = "#vertex" + v;
-                    d3.select(vertex2).transition().style({
-                        "fill" : "#999999",
-                        "stroke" : "#999999"
-                    }).delay(delayValue * 900).duration(1000);
+                    /*d3.select(vertex2).transition().style({
+                        "fill" : "rgb(0, 128, 0)",
+                        "stroke" : "rgb(0, 128, 0)"
+                    }).delay(delayValue * 500).duration(1000);*/
 
                     G.colors[v] = gray;
                     G.d[v] = G.d[u] + 1;
@@ -131,38 +141,6 @@ function startfn() {
         
     }
 
-    function resetGraph(G) {
-
-        for(var i = 0; i < G.V(); i++) {
-            var vertex = "#vertex" + i;
-            var text = "#text" + i;
-            d3.select(vertex).transition().style({
-                "fill" : "#FFFFFF",
-                "stroke" : "#C61C6F"
-            }).duration(400);
-
-            d3.select(text).transition().style({
-                "fill" : "#000000"
-            }).duration(400);
-
-            var adj = G.getAdj(i);
-
-            for(var j = 0; j < adj.length; j++) {
-                var v = adj[j];
-                var edge = "#edge";
-
-                if(v > i) { //making sure that I am not resetting the same edge twice
-                    edge = edge + i + v;
-                    d3.select(edge).transition().style({
-                        "stroke" : "#000000",
-                        "stroke-width" : 2
-                    }).duration(400);
-                }
-            }
-        }
-
-    }
-
     /*event handlers*/
 
     $("#play").on("click", togglePlayButton);
@@ -172,4 +150,6 @@ function startfn() {
     $("#runBFS").on("click", selectSourceButton);
 
     $("#startBFS").on("click", bfsgo); //start main bfs
+
+    $("#samples").on("click", chooseSampleGraph);    
 }
