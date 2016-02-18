@@ -21,7 +21,7 @@ function startfn() {
     ui.output.pageLoad("#viz", "#speedbar", "#progressbar");
 
     function togglePlayButton() {
-        if (playState === paused || playState === notStarted) {
+        if (playState === paused || playState === notStarted || playState == finished) {
             playState = playing;
             $(this).removeClass("glyphicon glyphicon-play playpause");
             $(this).addClass("glyphicon glyphicon-pause playpause");
@@ -61,6 +61,7 @@ function startfn() {
             ui.output.resetGraph(G);
         }
 
+        playState = playing;
         var white = "WHITE";
         var gray = "GRAY";
         var black = "BLACK";
@@ -81,15 +82,15 @@ function startfn() {
         q.enqueue(s);
 
 
-        // animation delay and increase values start
+        // animation delay and increase variables start
 
         var delayValue = 700;
 
-        var dequeueValueIncrease = 700;
-        var vertexValueIncrease = 350;
-        var edgeValueIncrease = 400;
+        var dequeueValueIncrease = 1000;
+        var vertexValueIncrease = 50;
+        var edgeValueIncrease = 500;
 
-        // animation delay and increase values end
+        // animation delay and increase variables end
 
         while(q.size() > 0) {
             var u = q.dequeue();
@@ -148,10 +149,13 @@ function startfn() {
             delayValue+=dequeueValueIncrease;
         }
         played = true;
+        playState = finished;
     }
 
     function forwardBTN() {
-        
+        if (playState == paused) {
+            
+        }
     }
 
     /*event handlers*/
