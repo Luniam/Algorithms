@@ -51,7 +51,7 @@ function startfn() {
         if (playState === paused) {
             playState = playing;
             changeIcon("pause");
-            bfs();
+            bfs(resetId);
         }
 
         else if (playState === playing) {
@@ -62,16 +62,14 @@ function startfn() {
         else if (playState === finished) {
             //bfsgo(); except selectSourceButton() in the followinbg code
 
-            source = +$("#sourceInput").val();
-            //initializing
-            initializeSource();
-            bfsSim();
+            preBFS();
 
             playState = playing;
             changeIcon("pause");
-            resetId++;
 
-            setTimeout(bfs, 1000);
+            setTimeout(function() {
+                bfs(resetId);
+            }, 1000);
         }
     }
 
@@ -121,25 +119,29 @@ function startfn() {
         mainQ.enqueue(source);
     }
 
-    function bfsgo() {
-
+    function preBFS() {
         source = +$("#sourceInput").val();
-        selectSourceButton(); //for sliding
-
         //initializing
         initializeSource();
         bfsSim();
-
         resetId++;
+    }
 
-        setTimeout(bfs, 1000);
+    function bfsgo() {
+        selectSourceButton(); //for sliding
+
+        preBFS();
+
+        setTimeout(function() {
+            bfs(resetId);
+        }, 1000);
     }
     
-    function bfs() {
+    function bfs(id) {
 
         played = true;
         
-        if (vertexMarker <= G.V()-1 && playState === playing) {
+        if (vertexMarker <= G.V()-1 && playState === playing && id == resetId) {
 
             
             if (turn == "vertex") {
@@ -160,7 +162,9 @@ function startfn() {
 
                 turn = "edge";
 
-                setTimeout(bfs, 1000);
+                setTimeout(function() {
+                    bfs(id);
+                }, 1000);
             }
 
             else if (turn == "edge") {
@@ -213,7 +217,9 @@ function startfn() {
                     return;
                 }
 
-                setTimeout(bfs, 1000);
+                setTimeout(function() {
+                    bfs(id);
+                }, 1000);
             }
         }
 
