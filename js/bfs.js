@@ -6,8 +6,12 @@ $(document).ready(startfn);
 
 function startfn() {
 
+    var progressbarId = "#progressbar";
+    var speedbarId = "#speedbar";
+    var vizId = "#viz";
+
     var steps = 0;
-    var delayValue = 0;
+    var progressbarIncreaseValue = 0;
 
     /* (╯°□°）╯︵ ┻━┻   stupid variables and values*/
     var played = false; //if bfs was run atleast once
@@ -39,7 +43,7 @@ function startfn() {
     /*end of the stupid variables*/
 
 
-    ui.output.pageLoad("#viz", "#speedbar", "#progressbar");
+    ui.output.pageLoad(vizId, speedbarId, progressbarId);
 
     var source = 0; //default source
     var graphNodes = ui.output.graphNodes();
@@ -69,7 +73,7 @@ function startfn() {
 
             setTimeout(function() {
                 bfs(resetId);
-            }, 1000);
+            }, 500);
         }
     }
 
@@ -134,7 +138,7 @@ function startfn() {
 
         setTimeout(function() {
             bfs(resetId);
-        }, 1000);
+        }, 500);
     }
     
     function bfs(id) {
@@ -154,17 +158,19 @@ function startfn() {
                 d3.select(vertex).transition().style({
                     "fill" : "#F38630",
                     "stroke" : "#F38630"
-                }).duration(1000);
+                }).duration(500);
 
                 d3.select(text).transition().style({
                     "fill" : "rgb(255, 255, 255)"
-                }).duration(1000);
+                }).duration(500);
 
                 turn = "edge";
 
+                ui.output.changeProgressBar(progressbarId, progressbarIncreaseValue);
+
                 setTimeout(function() {
                     bfs(id);
-                }, 1000);
+                }, 500);
             }
 
             else if (turn == "edge") {
@@ -201,14 +207,16 @@ function startfn() {
                     d3.select(edge).transition().style({
                         "stroke" : "rgb(0, 128, 0)",
                         "stroke-width" : 5
-                    }).duration(1000);
+                    }).duration(500);
 
                     d3.select(vertex2).transition().style({
                         "fill" : "#808080",
                         "stroke" : "#808080"
-                    }).delay(50).duration(1000);
+                    }).delay(50).duration(500);
 
                     edgeMarker++;
+
+                    ui.output.changeProgressBar(progressbarId, progressbarIncreaseValue);
                 }
 
                 if (vertexMarker == G.V()) {
@@ -219,7 +227,7 @@ function startfn() {
 
                 setTimeout(function() {
                     bfs(id);
-                }, 1000);
+                }, 500);
             }
         }
 
@@ -240,9 +248,12 @@ function startfn() {
 
     function bfsSim() {
 
+        steps = 0;
+
         while(mainQ.size() > 0) {
 
             var u = mainQ.dequeue();
+            steps++;
             
             var temp = {};
             temp[u] = [];
@@ -253,6 +264,7 @@ function startfn() {
                 var v = adj[i];
 
                 if (G.colors[v] === white) { //haven't been explored before
+                    steps++;
                     temp[u].push(v);
 
                     G.colors[v] = gray;
@@ -264,7 +276,12 @@ function startfn() {
 
             animateList.push(temp);
             G.colors[u] === black;
+        }
+        
+        steps--;
 
+        if (steps != 0) {
+            progressbarIncreaseValue = 100/steps;
         }
     }
 
@@ -277,6 +294,8 @@ function startfn() {
         mainStack = [];
 
         animateList = [];
+
+        ui.output.drawProgressBar(progressbarId); //resetting the progressbar
     }
 
     /*event handlers*/

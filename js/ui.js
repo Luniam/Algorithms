@@ -58,6 +58,16 @@ ui.output = (function() {
         });
     }
 
+    function changeProgressBar(pageId, newValue) {
+
+        var oldValue = $(pageId).progressbar("value");
+        var final = oldValue + newValue
+
+        $(pageId).progressbar({
+            value : final
+        });
+    }
+
     function pageLoad(vizId, speedbarId, progressbarId) {
 
         if (defaultGraph == 1 && graphType == undirectedGraph) { //from sampleGraphs.js
@@ -110,7 +120,9 @@ ui.output = (function() {
         pageLoad : pageLoad,
         graph : get_graph,
         graphNodes : get_graphNodes,
-        resetGraph : resetGraph
+        resetGraph : resetGraph,
+        changeProgressBar : changeProgressBar,
+        drawProgressBar : drawProgressBar
     }
 
 }());
