@@ -168,3 +168,6 @@ var edgeData1 = [
 ];
 
 var sampleGraph1 = [vertexData1, edgeData1, radius];
+
+
+var vertexData2 = [];

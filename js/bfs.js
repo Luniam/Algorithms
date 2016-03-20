@@ -7,31 +7,77 @@ $(document).ready(startfn);
 function startfn() {
 
     var steps = 0;
+    var delayValue = 0;
 
-
-    /* (╯°□°）╯︵ ┻━┻   stupid variables*/
-    var played = false; // if bfs was run atleast once
+    /* (╯°□°）╯︵ ┻━┻   stupid variables and values*/
+    var played = false; //if bfs was run atleast once
     var playing = 1;
     var paused = 0;
     var notStarted = 2;
     var finished = 3;
+
     var playState = notStarted;
+
+    //bfs vertex coloring
+    var white = "WHITE";
+    var gray = "GRAY";
+    var black = "BLACK";
+
+
+    var turn = "vertex";
+    var vertexMarker = 0;
+    var edgeMarker = 0;
+
+    var mainQ = new Queue(); // from  q.js
+    var mainStack = [];
+
+
+    var animateList = [];
+
+    var resetId = 0;
+
+    /*end of the stupid variables*/
 
 
     ui.output.pageLoad("#viz", "#speedbar", "#progressbar");
 
+    var source = 0; //default source
+    var graphNodes = ui.output.graphNodes();
+    var G = ui.output.graph(); //graph and graphnodes are initialized after pageload
+
+
     function togglePlayButton() {
-        if (playState === paused || playState === notStarted || playState == finished) {
+        
+        if (playState === paused) {
             playState = playing;
-            $(this).removeClass("glyphicon glyphicon-play playpause");
-            $(this).addClass("glyphicon glyphicon-pause playpause");
+            changeIcon("pause");
+            bfs();
         }
 
-        else {
+        else if (playState === playing) {
             playState = paused;
-            $(this).removeClass("glyphicon glyphicon-pause playpause");
-            $(this).addClass("glyphicon glyphicon-play playpause");
+            changeIcon("play");
         }
+
+        else if (playState === finished) {
+            //bfsgo(); except selectSourceButton() in the followinbg code
+
+            source = +$("#sourceInput").val();
+            //initializing
+            initializeSource();
+            bfsSim();
+
+            playState = playing;
+            changeIcon("pause");
+            resetId++;
+
+            setTimeout(bfs, 1000);
+        }
+    }
+
+    function changeIcon(state) { //state = "pause"/"play"/"repeat"
+        $("#play").removeClass();
+        $("#play").addClass("glyphicon glyphicon-"+ state + " playpause");
     }
 
     function selectSourceButton() {
@@ -42,16 +88,11 @@ function startfn() {
         $("#slide3").toggle("slide");
     }
 
-    function bfsgo() {
+    function initializeSource() {
 
-        var source = +$("#sourceInput").val();
-        selectSourceButton();
-        bfs(ui.output.graph(), ui.output.graphNodes(), source);
-    }
+        resetValues();
 
-    function bfs(G, graphNodes, s) {
-
-        if(s > G.V()-1 || s < 0) {
+        if(source > G.V()-1 || source < 0) { //check source validity
             var temp = G.V()-1;
             alert("please select a source between 0 and " + temp);
             return;
@@ -59,53 +100,146 @@ function startfn() {
 
         if (played) {
             ui.output.resetGraph(G);
+            played = false;
         }
 
         playState = playing;
-        var white = "WHITE";
-        var gray = "GRAY";
-        var black = "BLACK";
+        changeIcon("pause");
 
         for(var i = 0; i < G.V(); i++) {
-            if (i !== s) {
+            if (i !== source) {
                 G.colors[i] = white;
                 G.d[i] = -1;
                 G.parents[i] = -1;
             }
         }
 
-        G.colors[s] = gray;
-        G.d[s] = 0;
-        G.parents[s] = 0;
+        G.colors[source] = gray;
+        G.d[source] = 0;
+        G.parents[source] = 0;
+        
+        mainQ.enqueue(source);
+    }
 
-        var q = new Queue(); // from  q.js
-        q.enqueue(s);
+    function bfsgo() {
 
+        source = +$("#sourceInput").val();
+        selectSourceButton(); //for sliding
 
-        // animation delay and increase variables start
+        //initializing
+        initializeSource();
+        bfsSim();
 
-        var delayValue = 700;
+        resetId++;
 
-        var dequeueValueIncrease = 1000;
-        var vertexValueIncrease = 50;
-        var edgeValueIncrease = 500;
+        setTimeout(bfs, 1000);
+    }
+    
+    function bfs() {
 
-        // animation delay and increase variables end
+        played = true;
+        
+        if (vertexMarker <= G.V()-1 && playState === playing) {
 
-        while(q.size() > 0) {
-            var u = q.dequeue();
-            var vertex = "#vertex" + u;
-            var text = "#text" + u;
+            
+            if (turn == "vertex") {
 
-            d3.select(vertex).transition().style({
-                "fill" : "#F38630",
-                "stroke" : "#F38630"
-            }).delay(delayValue).duration(1000);
+                var tempVertex = Object.keys(animateList[vertexMarker])[0];
 
-            d3.select(text).transition().style({
-                "fill" : "rgb(255, 255, 255)"
-            }).delay(delayValue).duration(1000);
+                var vertex = "#vertex" + tempVertex;
+                var text = "#text" + tempVertex;
 
+                d3.select(vertex).transition().style({
+                    "fill" : "#F38630",
+                    "stroke" : "#F38630"
+                }).duration(1000);
+
+                d3.select(text).transition().style({
+                    "fill" : "rgb(255, 255, 255)"
+                }).duration(1000);
+
+                turn = "edge";
+
+                setTimeout(bfs, 1000);
+            }
+
+            else if (turn == "edge") {
+
+                var tempVertex = Object.keys(animateList[vertexMarker])[0];
+                var tempList = animateList[vertexMarker][tempVertex];
+                
+                if (tempList.length == 0) {
+                    turn = "vertex";
+                    edgeMarker = 0;
+                    vertexMarker++;
+                }
+
+                else if (edgeMarker >= tempList.length) {
+                    turn = "vertex";
+                    edgeMarker = 0;
+                    vertexMarker++;
+                }
+
+                else {
+
+                    var vertex2 = "#vertex" + tempList[edgeMarker];
+
+                    var edge = "#edge";
+
+                    if (parseInt(tempVertex) < tempList[edgeMarker]) {
+                        edge = edge + tempVertex + tempList[edgeMarker];
+                    }
+
+                    else {
+                        edge = edge + tempList[edgeMarker] + tempVertex;
+                    }
+
+                    d3.select(edge).transition().style({
+                        "stroke" : "rgb(0, 128, 0)",
+                        "stroke-width" : 5
+                    }).duration(1000);
+
+                    d3.select(vertex2).transition().style({
+                        "fill" : "#808080",
+                        "stroke" : "#808080"
+                    }).delay(50).duration(1000);
+
+                    edgeMarker++;
+                }
+
+                if (vertexMarker == G.V()) {
+                    playState = finished;
+                    changeIcon("repeat");
+                    return;
+                }
+
+                setTimeout(bfs, 1000);
+            }
+        }
+
+        else if (vertexMarker == G.V()) {
+            playState = finished;
+            changeIcon("repeat");
+        }
+
+        else { return; }
+
+    }
+
+    
+
+    function forwardBTN() {
+        
+    }
+
+    function bfsSim() {
+
+        while(mainQ.size() > 0) {
+
+            var u = mainQ.dequeue();
+            
+            var temp = {};
+            temp[u] = [];
 
             var adj = G.getAdj(u);
 
@@ -113,49 +247,30 @@ function startfn() {
                 var v = adj[i];
 
                 if (G.colors[v] === white) { //haven't been explored before
-
-                    //edge animation
-
-                    var edge = "#edge";
-                    if (u < v) {edge = edge + u + v;}
-
-                    else {edge = edge + v + u;}
-
-                    delayValue+=edgeValueIncrease;
-
-                    d3.select(edge).transition().style({
-                        "stroke" : "rgb(0, 128, 0)",
-                        "stroke-width" : 5
-                    }).delay(delayValue).duration(1000);
-
-                    delayValue+=vertexValueIncrease;
-
-                    var vertex2 = "#vertex" + v;
-                    
-                    d3.select(vertex2).transition().style({
-                        "fill" : "#808080",
-                        "stroke" : "#808080"
-                    }).delay(delayValue).duration(1000);
+                    temp[u].push(v);
 
                     G.colors[v] = gray;
                     G.d[v] = G.d[u] + 1;
                     G.parents[v] = u;
-                    q.enqueue(v);
+                    mainQ.enqueue(v);
                 }
             }
 
-            G.colors[u] = black;
+            animateList.push(temp);
+            G.colors[u] === black;
 
-            delayValue+=dequeueValueIncrease;
         }
-        played = true;
-        playState = finished;
     }
 
-    function forwardBTN() {
-        if (playState == paused) {
-            
-        }
+    function resetValues() {
+        turn = "vertex";
+        vertexMarker = 0;
+        edgeMarker = 0;
+
+        mainQ = new Queue(); // from  q.js
+        mainStack = [];
+
+        animateList = [];
     }
 
     /*event handlers*/

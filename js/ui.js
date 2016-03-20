@@ -54,7 +54,7 @@ ui.output = (function() {
 
     function drawProgressBar(pageId) {
         $(pageId).progressbar({
-            value : 39
+            value : 0
         });
     }
 
