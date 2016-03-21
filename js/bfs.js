@@ -73,7 +73,7 @@ function startfn() {
 
             setTimeout(function() {
                 bfs(resetId);
-            }, 500);
+            }, 400);
         }
     }
 
@@ -138,7 +138,114 @@ function startfn() {
 
         setTimeout(function() {
             bfs(resetId);
-        }, 500);
+        }, 400);
+    }
+
+    function vertexTurn() {
+
+        var tempVertex = Object.keys(animateList[vertexMarker])[0];
+
+        var vertex = "#vertex" + tempVertex;
+        var text = "#text" + tempVertex;
+
+        d3.select(vertex).transition().style({
+            "fill" : "#F38630",
+            "stroke" : "#F38630"
+        }).duration(400);
+
+        d3.select(text).transition().style({
+            "fill" : "rgb(255, 255, 255)"
+        }).duration(400);
+
+        turn = "edge";
+
+        ui.output.changeProgressBar(progressbarId, progressbarIncreaseValue);
+
+        if (vertexMarker == G.V()-1) {
+            playState = finished;
+            changeIcon("repeat");
+            return;
+        }
+
+    }
+
+    function edgeTurn() {
+
+        var tempVertex = Object.keys(animateList[vertexMarker])[0];
+        var tempList = animateList[vertexMarker][tempVertex];
+        
+        if (tempList.length == 0) {
+            turn = "vertex";
+            edgeMarker = 0;
+            vertexMarker++;
+            vertexTurn();
+
+            if (vertexMarker == G.V()) {
+                playState = finished;
+                changeIcon("repeat");
+                return;
+            }
+        }
+
+        else if (edgeMarker >= tempList.length) { //redundant
+            turn = "vertex";
+            edgeMarker = 0;
+            vertexMarker++;
+
+            if (vertexMarker == G.V()) {
+                playState = finished;
+                changeIcon("repeat");
+                return;
+            }
+        }
+
+        else {
+
+            var vertex2 = "#vertex" + tempList[edgeMarker];
+
+            var edge = "#edge";
+
+            if (parseInt(tempVertex) < tempList[edgeMarker]) {
+                edge = edge + tempVertex + tempList[edgeMarker];
+            }
+
+            else {
+                edge = edge + tempList[edgeMarker] + tempVertex;
+            }
+
+            d3.select(edge).transition().style({
+                "stroke" : "rgb(0, 128, 0)",
+                "stroke-width" : 5
+            }).duration(400);
+
+            d3.select(vertex2).transition().style({
+                "fill" : "#808080",
+                "stroke" : "#808080"
+            }).delay(50).duration(400);
+
+            edgeMarker++;
+
+            if (edgeMarker >= tempList.length) {
+                turn = "vertex";
+                edgeMarker = 0;
+                vertexMarker++;
+
+                if (vertexMarker == G.V()) {
+                    playState = finished;
+                    changeIcon("repeat");
+                    return;
+                }
+            }
+
+            ui.output.changeProgressBar(progressbarId, progressbarIncreaseValue);
+        }
+
+        if (vertexMarker == G.V()) { //redundant
+            playState = finished;
+            changeIcon("repeat");
+            return;
+        }
+
     }
     
     function bfs(id) {
@@ -150,84 +257,20 @@ function startfn() {
             
             if (turn == "vertex") {
 
-                var tempVertex = Object.keys(animateList[vertexMarker])[0];
-
-                var vertex = "#vertex" + tempVertex;
-                var text = "#text" + tempVertex;
-
-                d3.select(vertex).transition().style({
-                    "fill" : "#F38630",
-                    "stroke" : "#F38630"
-                }).duration(500);
-
-                d3.select(text).transition().style({
-                    "fill" : "rgb(255, 255, 255)"
-                }).duration(500);
-
-                turn = "edge";
-
-                ui.output.changeProgressBar(progressbarId, progressbarIncreaseValue);
+                vertexTurn();
 
                 setTimeout(function() {
                     bfs(id);
-                }, 500);
+                }, 400);
             }
 
             else if (turn == "edge") {
 
-                var tempVertex = Object.keys(animateList[vertexMarker])[0];
-                var tempList = animateList[vertexMarker][tempVertex];
-                
-                if (tempList.length == 0) {
-                    turn = "vertex";
-                    edgeMarker = 0;
-                    vertexMarker++;
-                }
-
-                else if (edgeMarker >= tempList.length) {
-                    turn = "vertex";
-                    edgeMarker = 0;
-                    vertexMarker++;
-                }
-
-                else {
-
-                    var vertex2 = "#vertex" + tempList[edgeMarker];
-
-                    var edge = "#edge";
-
-                    if (parseInt(tempVertex) < tempList[edgeMarker]) {
-                        edge = edge + tempVertex + tempList[edgeMarker];
-                    }
-
-                    else {
-                        edge = edge + tempList[edgeMarker] + tempVertex;
-                    }
-
-                    d3.select(edge).transition().style({
-                        "stroke" : "rgb(0, 128, 0)",
-                        "stroke-width" : 5
-                    }).duration(500);
-
-                    d3.select(vertex2).transition().style({
-                        "fill" : "#808080",
-                        "stroke" : "#808080"
-                    }).delay(50).duration(500);
-
-                    edgeMarker++;
-
-                    ui.output.changeProgressBar(progressbarId, progressbarIncreaseValue);
-                }
-
-                if (vertexMarker == G.V()) {
-                    playState = finished;
-                    changeIcon("repeat");
-                    return;
-                }
+                edgeTurn();
 
                 setTimeout(function() {
                     bfs(id);
-                }, 500);
+                }, 400);
             }
         }
 
@@ -244,6 +287,17 @@ function startfn() {
 
     function forwardBTN() {
         
+        if (vertexMarker <= G.V()-1 && playState === paused) {
+
+            if (turn == "vertex") {
+                vertexTurn();
+            }
+
+            else if (turn == "edge") {
+                edgeTurn();
+            }
+
+        }
     }
 
     function bfsSim() {
@@ -283,6 +337,8 @@ function startfn() {
         if (steps != 0) {
             progressbarIncreaseValue = 100/steps;
         }
+
+        console.log(animateList);
     }
 
     function resetValues() {
