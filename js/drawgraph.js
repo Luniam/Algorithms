@@ -16,6 +16,7 @@ draw.output = (function() {
                       .append("div")
                           .classed("svg-container", true)
                           .classed("col-md-8", true)
+                          .attr("id" , "mainSVG")
                           .append('svg')
                               .attr({
                                   "preserveAspectRatio" : "xMinYMin meet",

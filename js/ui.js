@@ -80,8 +80,14 @@ ui.output = (function() {
         drawProgressBar(progressbarId);
     }
 
-    function redrawGraph(graph, node, id) {
-        draw.output.removeGraph(node);        
+    function redrawGraph(node, id, sampleGraphNum) {
+        //draw.output.removeGraph(node);
+
+        if (sampleGraphNum == 1) {
+            graph = new Graph(sampleGraph2);
+        }
+
+        graphNodes = draw.output.drawGraph(graph, id);
     }
 
     function resetGraph(G) {
@@ -122,7 +128,8 @@ ui.output = (function() {
         graphNodes : get_graphNodes,
         resetGraph : resetGraph,
         changeProgressBar : changeProgressBar,
-        drawProgressBar : drawProgressBar
+        drawProgressBar : drawProgressBar,
+        redrawGraph : redrawGraph
     }
 
 }());

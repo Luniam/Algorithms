@@ -49,7 +49,6 @@ function startfn() {
     var graphNodes = ui.output.graphNodes();
     var G = ui.output.graph(); //graph and graphnodes are initialized after pageload
 
-
     function togglePlayButton() {
         
         if (playState === paused) {
@@ -300,6 +299,14 @@ function startfn() {
         }
     }
 
+    function backwardBTN() {
+
+        if (mainStack.length > 0 && playState === paused) {
+
+        }
+
+    }
+
     function bfsSim() {
 
         steps = 0;
@@ -331,14 +338,10 @@ function startfn() {
             animateList.push(temp);
             G.colors[u] === black;
         }
-        
-        steps--;
 
         if (steps != 0) {
             progressbarIncreaseValue = 100/steps;
         }
-
-        console.log(animateList);
     }
 
     function resetValues() {
@@ -354,15 +357,48 @@ function startfn() {
         ui.output.drawProgressBar(progressbarId); //resetting the progressbar
     }
 
+    function changeSampleGraph(graphNumber) {
+
+        $("#mainSVG").remove();
+
+        ui.output.redrawGraph(graphNodes[0], vizId, graphNumber);
+
+        G = ui.output.graph();
+        graphNodes = ui.output.graphNodes();
+        resetValues();
+
+        playState = notStarted;
+        changeIcon("play");
+        played = false;
+
+        resetId = 0;
+
+        chooseSampleGraph();//for sliding back
+    }
+
     /*event handlers*/
 
     $("#play").on("click", togglePlayButton);
 
     $("#forward").on("click", forwardBTN);
 
+    $("#backward").on("click", backwardBTN);
+
     $("#runBFS").on("click", selectSourceButton);
 
     $("#startBFS").on("click", bfsgo); //start main bfs
 
-    $("#samples").on("click", chooseSampleGraph);    
+    $("#samples").on("click", chooseSampleGraph);
+
+    $("#graph1").on('click', function() {
+        changeSampleGraph(1);
+    });
+
+    $("#graph2").on('click', function() {
+        changeSampleGraph(2);
+    });
+
+    $("#graph3").on('click', function() {
+        changeSampleGraph(3);
+    });
 }

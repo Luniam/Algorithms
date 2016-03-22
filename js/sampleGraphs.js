@@ -170,4 +170,90 @@ var edgeData1 = [
 var sampleGraph1 = [vertexData1, edgeData1, radius];
 
 
-var vertexData2 = [];
+var vertexData2 = [
+    
+    {
+        xVal : 330,
+        yVal : 40,
+        value : 0
+    },
+
+    {
+        xVal : 230,
+        yVal : 140,
+        value : 1
+    },
+
+    {
+        xVal : 430,
+        yVal : 140,
+        value : 2
+    },
+
+    {
+        xVal : 130,
+        yVal : 240,
+        value : 3
+    },
+
+    {
+        xVal : 250,
+        yVal : 240,
+        value : 4
+    },
+
+    {
+        xVal : 400,
+        yVal : 240,
+        value : 5
+    },
+
+    {
+        xVal : 520,
+        yVal : 240,
+        value : 6
+    }
+
+];
+
+var edgeData2 = [
+    
+    {
+        from : 0,
+        to : 1,
+        weight : 0
+    },
+
+    {
+        from : 0,
+        to : 2,
+        weight : 0
+    },
+
+    {
+        from : 1,
+        to : 3,
+        weight : 0
+    },
+
+    {
+        from : 1,
+        to : 4,
+        weight : 0
+    },
+
+    {
+        from : 2,
+        to : 5,
+        weight : 0
+    },
+
+    {
+        from : 2,
+        to : 6,
+        weight : 0
+    }
+
+];
+
+var sampleGraph2 = [vertexData2, edgeData2, radius];
