@@ -186,6 +186,13 @@ li.bar:hover {
     height: 1.25em;
 }
 
+.ui-progressbar .ui-progressbar-value {
+    margin: -1px;
+    /*height: 100%;*/
+    transition: width 0.5s;
+    -webkit-transition: width 0.5s;
+}
+
 .playpause {
     font-size: 1.25em;
 }

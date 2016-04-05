@@ -173,45 +173,93 @@ var sampleGraph1 = [vertexData1, edgeData1, radius];
 var vertexData2 = [
     
     {
-        xVal : 330,
+        xVal : 370,
         yVal : 40,
         value : 0
     },
 
     {
-        xVal : 230,
+        xVal : 270,
         yVal : 140,
         value : 1
     },
 
     {
-        xVal : 430,
+        xVal : 470,
         yVal : 140,
         value : 2
     },
 
     {
-        xVal : 130,
+        xVal : 170,
         yVal : 240,
         value : 3
     },
 
     {
-        xVal : 250,
+        xVal : 300,
         yVal : 240,
         value : 4
     },
 
     {
-        xVal : 400,
+        xVal : 440,
         yVal : 240,
         value : 5
     },
 
     {
-        xVal : 520,
+        xVal : 570,
         yVal : 240,
         value : 6
+    },
+
+    {
+        xVal : 70,
+        yVal : 340,
+        value : 7
+    },
+
+    {
+        xVal : 190,
+        yVal : 340,
+        value : 8
+    },
+
+    {
+        xVal : 260,
+        yVal : 340,
+        value : 9
+    },    
+
+    {
+        xVal : 330,
+        yVal : 340,
+        value : 10
+    },
+
+    {
+        xVal : 410,
+        yVal : 340,
+        value : 11
+    },
+
+    {
+        xVal : 480,
+        yVal : 340,
+        value : 12
+    },
+
+    {
+        xVal : 550,
+        yVal : 340,
+        value : 13
+    },
+
+    {
+        xVal : 670,
+        yVal : 340,
+        value : 14
     }
 
 ];
@@ -251,6 +299,54 @@ var edgeData2 = [
     {
         from : 2,
         to : 6,
+        weight : 0
+    },
+
+    {
+        from : 3,
+        to : 7,
+        weight : 0
+    },
+
+    {
+        from : 3,
+        to : 8,
+        weight : 0
+    },
+
+    {
+        from : 4,
+        to : 9,
+        weight : 0
+    },
+
+    {
+        from : 4,
+        to : 10,
+        weight : 0
+    },
+
+    {
+        from : 5,
+        to : 11,
+        weight : 0
+    },
+
+    {
+        from : 5,
+        to : 12,
+        weight : 0
+    },
+
+    {
+        from : 6,
+        to : 13,
+        weight : 0
+    },
+
+    {
+        from : 6,
+        to : 14,
         weight : 0
     }
 
