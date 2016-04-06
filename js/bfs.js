@@ -63,7 +63,7 @@ function startfn() {
         }
 
         else if (playState === finished) {
-            //bfsgo(); except selectSourceButton() in the followinbg code
+            //bfsgo(); except selectSourceButton() in the following code
 
             preBFS();
 
@@ -147,6 +147,13 @@ function startfn() {
         var vertex = "#vertex" + tempVertex;
         var text = "#text" + tempVertex;
 
+        var tempObj = {};
+        var tempArray = [];
+        tempArray.push(vertex);
+        tempArray.push(text);
+        tempObj["vertex"] = tempArray;
+        mainStack.push(tempObj);        
+
         d3.select(vertex).transition().style({
             "fill" : "#F38630",
             "stroke" : "#F38630"
@@ -163,6 +170,7 @@ function startfn() {
         if (vertexMarker == G.V()-1) {
             playState = finished;
             changeIcon("repeat");
+            //console.log(mainStack);
             return;
         }
 
@@ -212,6 +220,13 @@ function startfn() {
                 edge = edge + tempList[edgeMarker] + tempVertex;
             }
 
+            var tempObj = {};
+            var tempArray = [];
+            tempArray.push(vertex2);
+            tempArray.push(edge);
+            tempObj["edge"] = tempArray;
+            mainStack.push(tempObj); 
+
             d3.select(edge).transition().style({
                 "stroke" : "rgb(0, 128, 0)",
                 "stroke-width" : 5
@@ -229,9 +244,10 @@ function startfn() {
                 edgeMarker = 0;
                 vertexMarker++;
 
-                if (vertexMarker == G.V()) {
+                if (vertexMarker == G.V()) { //redundant
                     playState = finished;
                     changeIcon("repeat");
+                    //console.log(mainStack);
                     return;
                 }
             }
@@ -242,6 +258,7 @@ function startfn() {
         if (vertexMarker == G.V()) { //redundant
             playState = finished;
             changeIcon("repeat");
+            //console.log(mainStack)
             return;
         }
 
@@ -302,7 +319,50 @@ function startfn() {
     function backwardBTN() {
 
         if (mainStack.length > 0 && playState === paused) {
+            var obj = mainStack.pop();
 
+            var key = Object.keys(obj)[0];
+
+            if (key == "vertex") {
+                var vertex = obj["vertex"][0];
+                var text = obj["vertex"][1];
+
+                d3.select(vertex).transition().style({
+                    "fill" : "#808080",
+                    "stroke" : "#808080"
+                }).duration(400);
+
+                d3.select(text).transition().style({
+                    "fill" : "#000000"
+                }).duration(400);
+
+                turn =  "vertex";
+
+                var decreaseValue = -1 * progressbarIncreaseValue;
+
+                ui.output.changeProgressBar(progressbarId, decreaseValue);
+            }
+
+            else if (key == "edge") {
+                var vertex2 = obj["edge"][0];
+                var edge = obj["edge"][1];
+
+                d3.select(vertex2).transition().style({
+                    "fill" : "#FFFFFF",
+                    "stroke" : "#C61C6F"
+                }).delay(50).duration(400);
+
+                d3.select(edge).transition().style({
+                    "stroke" : "#000000",
+                    "stroke-width" : 2
+                }).duration(400);
+
+                edgeMarker--;
+
+                var decreaseValue = -1 * progressbarIncreaseValue;
+
+                ui.output.changeProgressBar(progressbarId, decreaseValue);
+            }
         }
 
     }
@@ -338,6 +398,8 @@ function startfn() {
             animateList.push(temp);
             G.colors[u] === black;
         }
+
+        console.log(animateList);
 
         if (steps != 0) {
             progressbarIncreaseValue = 100/steps;
