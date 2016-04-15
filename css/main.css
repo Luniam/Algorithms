@@ -308,3 +308,7 @@ li.bar:hover {
 .center-text {
     text-align: center;
 }
+
+.navbar-form >.badge {
+    margin: 5px;
+}
