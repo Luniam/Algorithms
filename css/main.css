@@ -34,6 +34,12 @@ body {
     font-size: 1.05em;
 }
 
+/*.footer > .container {
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
+}*/
+
 /*changing font family end*/
 
 
@@ -227,4 +233,78 @@ li.bar:hover {
 
 .thirdelem {
     padding-top: 90px;
+}
+
+/*changing the about panel color*/
+
+.panel-primary {
+    border-color: #294860;
+}
+
+.panel-primary>.panel-heading {
+    background-color: #294860;
+}
+
+/*@keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: 100% 0; }
+}
+
+#animate-area   { 
+    background-image: url(../img/complexity.png);
+    background-position: 0px 0px;
+    background-repeat: repeat-x;
+
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+
+    animation: animatedBackground 40s linear infinite;
+}*/
+
+.btn-js_search {
+    font-family: 'Roboto', sans-serif;
+}
+
+.img-home {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+}
+
+.img-home:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+/*.img-bfs {
+    background-color: #28ABE3;
+}
+
+.img-dijkstra {
+    background-color: #4CAF50;
+}
+
+.img-tree {
+    background-color: #AD1457;
+}*/
+
+/*w3 css styles start*/
+
+.w3-card-4 {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+}
+
+.w3-padding-medium, .w3-padding, .w3-form {
+    padding: 8px 16px !important;
+}
+
+.w3-border {
+    border: 5px solid #ccc !important;
+}
+
+/*w3 css styles end*/
+
+.center-text {
+    text-align: center;
 }

@@ -1,7 +1,7 @@
 #!usr/bin/python
 
 """feed the uncompressed js code to the Google closure compiler and get back compiled js
-    run : python closure.py fileName(without .js extension, parsing is painful and I am lazy :p) """
+    run : python closure.py fileNames with spaces(without .js extension, parsing is painful and I am lazy :p) """
 
 import httplib, urllib, sys, os.path
 
@@ -75,4 +75,8 @@ def main(fileName):
 
 
 if __name__ == '__main__':
-    main(str(sys.argv[1]))
+
+    files = len(sys.argv)
+
+    for x in xrange(1,files):
+        main(str(sys.argv[x]))
