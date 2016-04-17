@@ -272,9 +272,13 @@ li.bar:hover {
     margin: 20px auto;
 }
 
-.img-home:hover {
+.img-hover-pos:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+.img-hover-neg:hover {
+    cursor: not-allowed;
 }
 
 /*.img-bfs {
@@ -297,6 +301,10 @@ li.bar:hover {
 
 .w3-padding-medium, .w3-padding, .w3-form {
     padding: 8px 16px !important;
+}
+
+.w3-padding-special {
+    padding-left: 15px;
 }
 
 .w3-border {
