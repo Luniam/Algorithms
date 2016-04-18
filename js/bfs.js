@@ -72,7 +72,7 @@ function startfn() {
 
             setTimeout(function() {
                 bfs(resetId);
-            }, 400);
+            }, 100);
         }
     }
 
@@ -137,7 +137,7 @@ function startfn() {
 
         setTimeout(function() {
             bfs(resetId);
-        }, 400);
+        }, 100);
     }
 
     function vertexTurn() {
@@ -157,11 +157,11 @@ function startfn() {
         d3.select(vertex).transition().style({
             "fill" : "#F38630",
             "stroke" : "#F38630"
-        }).duration(400);
+        }).duration(100);
 
         d3.select(text).transition().style({
             "fill" : "rgb(255, 255, 255)"
-        }).duration(400);
+        }).duration(100);
 
         turn = "edge";
 
@@ -230,12 +230,12 @@ function startfn() {
             d3.select(edge).transition().style({
                 "stroke" : "rgb(0, 128, 0)",
                 "stroke-width" : 5
-            }).duration(400);
+            }).duration(100);
 
             d3.select(vertex2).transition().style({
                 "fill" : "#808080",
                 "stroke" : "#808080"
-            }).delay(50).duration(400);
+            }).delay(50).duration(100);
 
             edgeMarker++;
 
@@ -277,7 +277,7 @@ function startfn() {
 
                 setTimeout(function() {
                     bfs(id);
-                }, 400);
+                }, 100);
             }
 
             else if (turn == "edge") {
@@ -286,7 +286,7 @@ function startfn() {
 
                 setTimeout(function() {
                     bfs(id);
-                }, 400);
+                }, 100);
             }
         }
 
@@ -330,11 +330,11 @@ function startfn() {
                 d3.select(vertex).transition().style({
                     "fill" : "#808080",
                     "stroke" : "#808080"
-                }).duration(400);
+                }).duration(100);
 
                 d3.select(text).transition().style({
                     "fill" : "#000000"
-                }).duration(400);
+                }).duration(100);
 
                 turn =  "vertex";
 
@@ -350,12 +350,12 @@ function startfn() {
                 d3.select(vertex2).transition().style({
                     "fill" : "#FFFFFF",
                     "stroke" : "#C61C6F"
-                }).delay(50).duration(400);
+                }).delay(50).duration(100);
 
                 d3.select(edge).transition().style({
                     "stroke" : "#000000",
                     "stroke-width" : 2
-                }).duration(400);
+                }).duration(100);
 
                 edgeMarker--;
 
