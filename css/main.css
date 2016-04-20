@@ -326,3 +326,21 @@ li.bar:hover {
 .navbar-form >.badge {
     margin: 5px;
 }
+
+.left-margin-reset {
+    margin-left: -20px;
+    font-family: 'Roboto';
+}
+
+.modalButton {
+    height: 50px;
+    margin: 10px;
+}
+
+.modalButton:hover {
+    cursor: pointer;
+}
+
+.crosshair_cursor:hover {
+    cursor: crosshair;
+}

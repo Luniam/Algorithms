@@ -24,7 +24,7 @@ draw.output = (function() {
                               })
                               .classed("svg-content-responsive", true);
 
-        vertexNode = d3.select("svg")
+        vertexNode = d3.select("#mainSVG").select("svg")
                         .append("g")
                             .attr("id", "vertices")
                             .selectAll("circle")
@@ -52,7 +52,7 @@ draw.output = (function() {
                                     });
 
 
-        textNode = d3.select("svg")
+        textNode = d3.select("#mainSVG").select("svg")
                        .append("g")
                            .attr("id", "texts")
                            .selectAll("text")
@@ -88,7 +88,7 @@ draw.output = (function() {
                                 return d.yVal;
                             });
 
-        edgeNode = d3.select("svg")
+        edgeNode = d3.select("#mainSVG").select("svg")
                         .append("g")
                             .attr("id", "edges")
 
