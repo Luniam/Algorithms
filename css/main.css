@@ -26,12 +26,19 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 30px;
+  height: 50px;
   background-color: #DADAD2;
 }
 
 .footer-modal {
     font-size: 1.05em;
+}
+
+.footer-image {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width : 30px;
+    height: 30px;
 }
 
 /*.footer > .container {
@@ -231,9 +238,9 @@ li.bar:hover {
     padding-bottom: 5px;
 }
 
-.thirdelem {
+/*.thirdelem {
     padding-top: 90px;
-}
+}*/
 
 /*changing the about panel color*/
 

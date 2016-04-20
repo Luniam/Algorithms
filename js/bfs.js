@@ -32,6 +32,8 @@ function startfn() {
     var vertexMarker = 0;
     var edgeMarker = 0;
 
+    var previousEdgeMarker = [];
+
     var mainQ = new Queue(); // from  q.js
     var mainStack = [];
 
@@ -81,13 +83,6 @@ function startfn() {
         $("#play").addClass("glyphicon glyphicon-"+ state + " playpause");
     }
 
-    function selectSourceButton() {
-        $("#slide").toggle("slide");
-    }
-
-    function chooseSampleGraph() {
-        $("#slide3").toggle("slide");
-    }
 
     function initializeSource() {
 
@@ -183,8 +178,16 @@ function startfn() {
         
         if (tempList.length == 0) {
             turn = "vertex";
+            previousEdgeMarker.push(edgeMarker);
             edgeMarker = 0;
             vertexMarker++;
+
+            var tempObj = {};
+            var tempArray = [];
+            tempObj["edgeTurn"] = tempArray;
+            mainStack.push(tempObj);  
+
+
             vertexTurn();
 
             if (vertexMarker == G.V()) {
@@ -225,7 +228,7 @@ function startfn() {
             tempArray.push(vertex2);
             tempArray.push(edge);
             tempObj["edge"] = tempArray;
-            mainStack.push(tempObj); 
+            mainStack.push(tempObj);
 
             d3.select(edge).transition().style({
                 "stroke" : "rgb(0, 128, 0)",
@@ -241,8 +244,14 @@ function startfn() {
 
             if (edgeMarker >= tempList.length) {
                 turn = "vertex";
+                previousEdgeMarker.push(edgeMarker);
                 edgeMarker = 0;
                 vertexMarker++;
+
+                var tempObj = {};
+                var tempArray = [];
+                tempObj["edgeTurn2"] = tempArray;
+                mainStack.push(tempObj);
 
                 if (vertexMarker == G.V()) { //redundant
                     playState = finished;
@@ -262,6 +271,21 @@ function startfn() {
             return;
         }
 
+    }
+
+    function forwardBTN() {
+        
+        if (vertexMarker <= G.V()-1 && playState === paused) {
+
+            if (turn == "vertex") {
+                vertexTurn();
+            }
+
+            else if (turn == "edge") {
+                edgeTurn();
+            }
+
+        }
     }
     
     function bfs(id) {
@@ -299,22 +323,6 @@ function startfn() {
 
     }
 
-    
-
-    function forwardBTN() {
-        
-        if (vertexMarker <= G.V()-1 && playState === paused) {
-
-            if (turn == "vertex") {
-                vertexTurn();
-            }
-
-            else if (turn == "edge") {
-                edgeTurn();
-            }
-
-        }
-    }
 
     function backwardBTN() {
 
@@ -341,6 +349,19 @@ function startfn() {
                 var decreaseValue = -1 * progressbarIncreaseValue;
 
                 ui.output.changeProgressBar(progressbarId, decreaseValue);
+
+
+
+                var newObj = mainStack[mainStack.length - 1];
+                var newKey = Object.keys(newObj)[0];
+
+                if (newKey == "edgeTurn") {
+                    turn = "edge";
+                    vertexMarker--;
+                    edgeMarker = previousEdgeMarker.pop();
+                    mainStack.pop();
+                }
+
             }
 
             else if (key == "edge") {
@@ -362,6 +383,19 @@ function startfn() {
                 var decreaseValue = -1 * progressbarIncreaseValue;
 
                 ui.output.changeProgressBar(progressbarId, decreaseValue);
+            }
+
+            else if (key == "edgeTurn2") {
+                turn = "edge";
+                vertexMarker--;
+                edgeMarker = previousEdgeMarker.pop();
+
+                var newObj = mainStack[mainStack.length - 1];
+                var newKey = Object.keys(newObj)[0];
+
+                if (newKey == "edge") {
+                    backwardBTN();
+                }
             }
         }
 
@@ -399,7 +433,7 @@ function startfn() {
             G.colors[u] === black;
         }
 
-        console.log(animateList);
+        //console.log(animateList);
 
         if (steps != 0) {
             progressbarIncreaseValue = 100/steps;
@@ -437,6 +471,37 @@ function startfn() {
 
         chooseSampleGraph();//for sliding back
     }
+
+
+    /*left side bar functions*/
+
+    function setPadding() {
+        if ($("#slide").css("display") == "none") {
+            $(".thirdelem").css("padding-top", "90px");
+        }
+
+        else {
+            $(".thirdelem").css("padding-top", "45px");
+        }
+    }
+
+    function selectSourceButton() {
+        $("#slide").toggle("slide");
+        setTimeout(function() {
+            setPadding();
+        }, 500);
+    }
+
+    function chooseSampleGraph() {
+
+        setPadding();
+        
+        $("#slide3").toggle("slide");
+    }
+
+    /*left side bar functions*/
+
+
 
     /*event handlers*/
 
