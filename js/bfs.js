@@ -42,6 +42,9 @@ function startfn() {
 
     var resetId = 0;
 
+    var speedTempValue = 0;
+    var speed = 500;
+
     /*end of the stupid variables*/
 
 
@@ -72,9 +75,12 @@ function startfn() {
             playState = playing;
             changeIcon("pause");
 
+            speed = ui.output.getSpeedInMilliseconds(speedbarId);
+
+
             setTimeout(function() {
                 bfs(resetId);
-            }, 100);
+            }, speed);
         }
     }
 
@@ -130,9 +136,11 @@ function startfn() {
 
         preBFS();
 
+        speed = ui.output.getSpeedInMilliseconds(speedbarId);
+
         setTimeout(function() {
             bfs(resetId);
-        }, 100);
+        }, speed);
     }
 
     function vertexTurn() {
@@ -147,16 +155,18 @@ function startfn() {
         tempArray.push(vertex);
         tempArray.push(text);
         tempObj["vertex"] = tempArray;
-        mainStack.push(tempObj);        
+        mainStack.push(tempObj);
+
+        speed = ui.output.getSpeedInMilliseconds(speedbarId);       
 
         d3.select(vertex).transition().style({
             "fill" : "#F38630",
             "stroke" : "#F38630"
-        }).duration(100);
+        }).duration(speed);
 
         d3.select(text).transition().style({
             "fill" : "rgb(255, 255, 255)"
-        }).duration(100);
+        }).duration(speed);
 
         turn = "edge";
 
@@ -165,7 +175,6 @@ function startfn() {
         if (vertexMarker == G.V()-1) {
             playState = finished;
             changeIcon("repeat");
-            //console.log(mainStack);
             return;
         }
 
@@ -230,15 +239,18 @@ function startfn() {
             tempObj["edge"] = tempArray;
             mainStack.push(tempObj);
 
+            speed = ui.output.getSpeedInMilliseconds(speedbarId);
+
+
             d3.select(edge).transition().style({
                 "stroke" : "rgb(0, 128, 0)",
                 "stroke-width" : 5
-            }).duration(100);
+            }).duration(speed);
 
             d3.select(vertex2).transition().style({
                 "fill" : "#808080",
                 "stroke" : "#808080"
-            }).delay(50).duration(100);
+            }).delay(50).duration(speed);
 
             edgeMarker++;
 
@@ -256,7 +268,6 @@ function startfn() {
                 if (vertexMarker == G.V()) { //redundant
                     playState = finished;
                     changeIcon("repeat");
-                    //console.log(mainStack);
                     return;
                 }
             }
@@ -267,7 +278,6 @@ function startfn() {
         if (vertexMarker == G.V()) { //redundant
             playState = finished;
             changeIcon("repeat");
-            //console.log(mainStack)
             return;
         }
 
@@ -299,18 +309,24 @@ function startfn() {
 
                 vertexTurn();
 
+                speed = ui.output.getSpeedInMilliseconds(speedbarId);
+    
+
                 setTimeout(function() {
                     bfs(id);
-                }, 100);
+                }, speed);
             }
 
             else if (turn == "edge") {
 
                 edgeTurn();
 
+                speed = ui.output.getSpeedInMilliseconds(speedbarId);
+    
+
                 setTimeout(function() {
                     bfs(id);
-                }, 100);
+                }, speed);
             }
         }
 
@@ -335,14 +351,17 @@ function startfn() {
                 var vertex = obj["vertex"][0];
                 var text = obj["vertex"][1];
 
+                speed = ui.output.getSpeedInMilliseconds(speedbarId);
+    
+
                 d3.select(vertex).transition().style({
                     "fill" : "#808080",
                     "stroke" : "#808080"
-                }).duration(100);
+                }).duration(speed);
 
                 d3.select(text).transition().style({
                     "fill" : "#000000"
-                }).duration(100);
+                }).duration(speed);
 
                 turn =  "vertex";
 
@@ -368,15 +387,18 @@ function startfn() {
                 var vertex2 = obj["edge"][0];
                 var edge = obj["edge"][1];
 
+                speed = ui.output.getSpeedInMilliseconds(speedbarId);
+    
+
                 d3.select(vertex2).transition().style({
                     "fill" : "#FFFFFF",
                     "stroke" : "#C61C6F"
-                }).delay(50).duration(100);
+                }).delay(50).duration(speed);
 
                 d3.select(edge).transition().style({
                     "stroke" : "#000000",
                     "stroke-width" : 2
-                }).duration(100);
+                }).duration(speed);
 
                 edgeMarker--;
 
@@ -433,7 +455,6 @@ function startfn() {
             G.colors[u] === black;
         }
 
-        //console.log(animateList);
 
         if (steps != 0) {
             progressbarIncreaseValue = 100/steps;

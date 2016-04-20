@@ -37,18 +37,32 @@ ui.output = (function() {
         return +$(pageId).slider("option", "value");
     }
 
-    function getSpeedInMilliseconds(tempValue) {
+    function getSpeedInMilliseconds(pageId) {
 
         /*takes a value from 0 to 100 and returns value in milliseconds*/
 
-        var lowVal = 100;
-        var hiVal  = 2100;
+        var tempValue = getSpeedBarValue(pageId);
 
-        var perDivision = (hiVal-lowVal)/100;
+        if (tempValue == 100) {
+            computed = 100;
+        }
 
-        var computed = (tempValue*perDivision) + lowVal;
+        else if (tempValue == 0) {
+            computed = 1100;
+        }
 
-        return (2150 - computed);
+        else {
+            tempValue = 100 - tempValue;
+
+            var fastest = 100;
+            var slowest  = 1100;
+
+            var perDivision = (slowest-fastest)/100.0;
+
+            var computed = (tempValue*perDivision) + 100;
+        }
+
+        return computed;
 
     }
 
@@ -129,7 +143,8 @@ ui.output = (function() {
         resetGraph : resetGraph,
         changeProgressBar : changeProgressBar,
         drawProgressBar : drawProgressBar,
-        redrawGraph : redrawGraph
+        redrawGraph : redrawGraph,
+        getSpeedInMilliseconds : getSpeedInMilliseconds
     }
 
 }());
