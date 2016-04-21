@@ -1,7 +1,7 @@
 
 
 /* ==========================================================================
-   Author's custom styles
+   luniam's custom styles
    ========================================================================== */
 /*changing font family start*/
 
@@ -120,12 +120,19 @@ body {
 
 /*responsive svg start*/
 
+svg {
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
 
 .svg-container {
     margin: 0 auto;
-    /*width: 100%;*/
     padding: 10px;
-    /*font-family: 'Exo 2', sans-serif;*/
 }
 
 .svg-content-responsive {
@@ -133,9 +140,45 @@ body {
     padding: 0;
     width: 100%;
     padding: 10px;
+    border: 2px solid #e5e5e5;
 }
 
-/*responsive svg start*/
+/*responsive svg end*/
+
+
+/*svg cursor start*/
+
+
+/*.crosshair_cursor:hover {
+    cursor: crosshair;
+}*/
+
+.crosshair_cursor {
+    border: 2px solid #e5e5e5;
+}
+
+.crosshair_cursor:not(.active):not(.ctrl) {
+    cursor: crosshair;
+}
+
+.crosshair_cursor:not(.active):not(.ctrl) path.link {
+  cursor: pointer;
+}
+
+circle.node {
+  cursor: pointer;
+}
+
+text.node {
+  cursor: pointer;
+}
+
+text {
+  pointer-events: none;
+}
+
+/*svg cursor end*/
+
 
 /*styles for the left sidebar*/
 
@@ -287,18 +330,6 @@ li.bar:hover {
     cursor: not-allowed;
 }
 
-/*.img-bfs {
-    background-color: #28ABE3;
-}
-
-.img-dijkstra {
-    background-color: #4CAF50;
-}
-
-.img-tree {
-    background-color: #AD1457;
-}*/
-
 /*w3 css styles start*/
 
 .w3-card-4 {
@@ -332,6 +363,8 @@ li.bar:hover {
     font-family: 'Roboto';
 }
 
+/*drawGraph modal*/
+
 .modalButton {
     height: 50px;
     margin: 10px;
@@ -341,6 +374,4 @@ li.bar:hover {
     cursor: pointer;
 }
 
-.crosshair_cursor:hover {
-    cursor: crosshair;
-}
+/*drawGraph modal*/

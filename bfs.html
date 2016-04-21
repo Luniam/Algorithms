@@ -77,7 +77,8 @@
                     <h4 class="modal-title" id="myModalLabel">Draw Graph</h4>
                     <ul class="left-margin-reset">
                         <li>Click to draw a vertex.</li>
-                        <li>Drag from one vertex to another to draw an edge.</li>
+                        <li>Drag from one vertex to another to draw an edge (Undirected for BFS and DFS).</li>
+                        <li>Click on an edge to select it. Press DEL while selected to delete it.</li>
                     </ul>
                   </div>
                   <div class="modal-body">
@@ -93,8 +94,9 @@
                     <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button> -->
 
-                    <img src="img/cross.svg" alt="Close" class="modalButton" data-dismiss="modal">
-                    <img src="img/right.svg" alt="Done" class="modalButton" data-dismiss="modal">
+                    <img src="img/right.svg" alt="Done" class="modalButton" data-dismiss="modal" id="doneButton" data-toggle="tooltip" data-placement="bottom" title="Done">
+                    <img src="img/restart.svg" alt="Reset" class="modalButton"  id="restartButton" data-toggle="tooltip" data-placement="bottom" title="Reset">
+                    <img src="img/cross.svg" alt="Close" class="modalButton" data-dismiss="modal" data-toggle="tooltip" data-placement="bottom" title="Close">
                   </div>
                 </div>
               </div>
@@ -112,7 +114,7 @@
                               <li id="runBFS" role="presentation" class="bar">BFS</li>
                               <li role="presentation" class="bar">DFS</li>
                               <li id="samples" role="presentation" class="bar">Sample Graphs</li>
-                              <li data-toggle="modal" data-target="#drawModal" role="presentation" class="bar">Draw Graph</li>
+                              <li data-toggle="modal" data-target="#drawModal" role="presentation" class="bar" id="draw">Draw Graph</li>
                             </ul>
                         </div>
 

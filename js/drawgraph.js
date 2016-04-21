@@ -142,9 +142,35 @@ draw.output = (function() {
         svgNodeToRemove.remove();
     }
 
+    function drawVertex(coords, time) {
+        var circeNode = d3.select("#drawPanel").append("circle")
+                            .attr({
+                                "cx" : coords[0],
+                                "cy" : coords[1],
+                                "r" : 20
+                            })
+                            .style({
+                                "fill" : "#FFFFFF",
+                                "stroke" : "#C61C6F",
+                                "stroke-width" : 2.5
+                            })
+                            .classed("node", true);
+
+        var textNode = d3.select("#drawPanel").append("text")
+                            .attr({
+                                "x" : (time <= 9) ? (coords[0]-5) : (coords[0]-10),
+                                "y" : (coords[1] + 5.3333),
+                                "font-weight" : "bold",
+                                "font-size" : "1.15em"
+                            })
+                            .classed("node", true)
+                            .text(time);
+    }
+
     return {
         drawGraph : drawGraph,
         removeGraph : removeGraph,
+        drawVertex : drawVertex
     }
     
 }()); 

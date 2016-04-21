@@ -10,6 +10,10 @@ ui.output = (function() {
     var speedbarValue;
     var speed = 1100; /* in milliseconds*/
 
+    var drawSampleGraph = [];
+    var drawVertexData = [];
+    var drawEdgeData = [];
+
     /*boolean values*/
     var directedGraph = 1;
     var undirectedGraph = 0;
@@ -136,6 +140,44 @@ ui.output = (function() {
 
     }
 
+    function drawVertexOnClick(that, time) {
+
+        if (time == 0) {
+            drawSampleGraph = [];
+            drawVertexData = [];
+            drawEdgeData = [];
+        }
+
+        var coords = d3.mouse(that);
+        draw.output.drawVertex(coords, time);
+
+        var tempObj = {};
+        tempObj["xVal"] = coords[0];
+        tempObj["yVal"] = coords[1];
+        tempObj["value"] = time; 
+
+        drawVertexData.push(tempObj);
+    }
+
+    function resetDrawPanel() {
+        d3.select("#drawPanel").selectAll("circle").remove();
+        d3.select("#drawPanel").selectAll("text").remove();
+        d3.select("#drawPanel").selectAll("line").remove();
+        d3.select("#drawPanel").selectAll("path").remove();
+    }
+
+    function drawUserGraph(time, id) {
+        if (time == 0) {
+            return;
+        }
+
+        drawSampleGraph = [drawVertexData, drawEdgeData, 20];
+        graph = new Graph(drawSampleGraph);
+
+        draw.output.drawGraph(graph, id);
+
+    }
+
     return {
         pageLoad : pageLoad,
         graph : get_graph,
@@ -144,7 +186,10 @@ ui.output = (function() {
         changeProgressBar : changeProgressBar,
         drawProgressBar : drawProgressBar,
         redrawGraph : redrawGraph,
-        getSpeedInMilliseconds : getSpeedInMilliseconds
+        getSpeedInMilliseconds : getSpeedInMilliseconds,
+        drawVertexOnClick : drawVertexOnClick,
+        resetDrawPanel : resetDrawPanel,
+        drawUserGraph : drawUserGraph
     }
 
 }());

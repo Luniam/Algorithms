@@ -45,6 +45,8 @@ function startfn() {
     var speedTempValue = 0;
     var speed = 500;
 
+    var time = 0;
+
     /*end of the stupid variables*/
 
 
@@ -523,7 +525,6 @@ function startfn() {
     /*left side bar functions*/
 
 
-
     /*event handlers*/
 
     $("#play").on("click", togglePlayButton);
@@ -548,5 +549,37 @@ function startfn() {
 
     $("#graph3").on('click', function() {
         changeSampleGraph(3);
+    });
+
+    d3.select("#drawPanel").on("click", function() {
+        ui.output.drawVertexOnClick(this, time);
+        time++;
+    }); //d3 event
+
+    $("#draw").on("click", function() {
+        ui.output.resetDrawPanel();
+        time = 0;
+    });
+
+    $("#doneButton").on("click", function() {
+        if (time != 0) {
+            $("#mainSVG").remove();
+            ui.output.drawUserGraph(time, vizId);
+
+            G = ui.output.graph();
+            graphNodes = ui.output.graphNodes();
+            resetValues();
+
+            playState = notStarted;
+            changeIcon("play");
+            played = false;
+
+            resetId = 0;
+        }
+    });
+
+    $("#restartButton").on("click", function() {
+        ui.output.resetDrawPanel();
+        time = 0;
     });
 }
