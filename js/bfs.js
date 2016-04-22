@@ -552,8 +552,7 @@ function startfn() {
     });
 
     d3.select("#drawPanel").on("click", function() {
-        ui.output.drawVertexOnClick(this, time);
-        time++;
+        ui.output.drawVertexOnClick(this, time++);
     }); //d3 event
 
     $("#draw").on("click", function() {

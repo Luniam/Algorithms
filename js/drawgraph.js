@@ -143,7 +143,12 @@ draw.output = (function() {
     }
 
     function drawVertex(coords, time) {
-        var circeNode = d3.select("#drawPanel").append("circle")
+
+        var gid = "g" + time;
+
+        var gnode = d3.select("#drawPanel").append("g").attr("id", gid);
+
+        var circeNode = gnode.append("circle")
                             .attr({
                                 "cx" : coords[0],
                                 "cy" : coords[1],
@@ -156,7 +161,7 @@ draw.output = (function() {
                             })
                             .classed("node", true);
 
-        var textNode = d3.select("#drawPanel").append("text")
+        var textNode = gnode.append("text")
                             .attr({
                                 "x" : (time <= 9) ? (coords[0]-5) : (coords[0]-10),
                                 "y" : (coords[1] + 5.3333),

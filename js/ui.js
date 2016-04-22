@@ -159,7 +159,10 @@ ui.output = (function() {
         drawVertexData.push(tempObj);
     }
 
+    
+
     function resetDrawPanel() {
+        d3.select("#drawPanel").selectAll("g").remove();
         d3.select("#drawPanel").selectAll("circle").remove();
         d3.select("#drawPanel").selectAll("text").remove();
         d3.select("#drawPanel").selectAll("line").remove();
