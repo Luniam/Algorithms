@@ -140,7 +140,7 @@ svg {
     padding: 0;
     width: 100%;
     padding: 10px;
-    border: 2px solid #e5e5e5;
+    /*border: 2px solid #e5e5e5;*/
 }
 
 /*responsive svg end*/
@@ -167,6 +167,10 @@ svg {
 
 circle.node {
   cursor: pointer;
+}
+
+g.node {
+    cursor: pointer;
 }
 
 text.node {

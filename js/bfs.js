@@ -147,6 +147,12 @@ function startfn() {
 
     function vertexTurn() {
 
+        if (vertexMarker >= animateList.length) {
+            playState = finished;
+            changeIcon("repeat");
+            return;
+        }
+
         var tempVertex = Object.keys(animateList[vertexMarker])[0];
 
         var vertex = "#vertex" + tempVertex;
@@ -551,7 +557,9 @@ function startfn() {
         changeSampleGraph(3);
     });
 
-    d3.select("#drawPanel").on("click", function() {
+    d3.select("#drawPanel").on("mousedown", function() {
+
+        if (d3.event.defaultPrevented) { return; };
         ui.output.drawVertexOnClick(this, time++);
     }); //d3 event
 

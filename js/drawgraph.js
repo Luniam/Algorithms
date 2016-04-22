@@ -4,6 +4,20 @@ var draw = draw || {};
 
 draw.output = (function() {
 
+
+    var drawSampleGraph = [];
+    var drawVertexData = [];
+    var drawEdgeData = [];
+
+    //drawpanel variable
+    var drag_line;
+    var isdragstarted = false;
+
+    var mousedown_link = null;
+    var selected_link = null;
+    var selected_link_mouse = null;
+    var mousedown_link_mouse = null;
+
     function drawGraph(graph, pageId) {
         /*takes a Graph object and an id(string) e.g. "#viz"*/
 
@@ -142,11 +156,24 @@ draw.output = (function() {
         svgNodeToRemove.remove();
     }
 
+    function drawDragLine() {
+        drag_line = d3.select("#drawPanel").append('svg:path')
+                        .attr('class', 'link dragline hidden')
+                        .attr('d', 'M0,0L0,0');
+    }
+
     function drawVertex(coords, time) {
 
         var gid = "g" + time;
 
-        var gnode = d3.select("#drawPanel").append("g").attr("id", gid);
+        var gnode = d3.select("#drawPanel").append("g").attr("id", gid).classed("node", true)
+                        .call(d3.behavior.drag()
+                                .on("dragstart", dragstarted)
+                                .on("drag", dragged)
+                                .on("dragend", dragended))
+                        .on("mouseup", mouseup)
+                        .on("mouseover", mouseover)
+                        .on("mouseout", mouseout);
 
         var circeNode = gnode.append("circle")
                             .attr({
@@ -172,10 +199,155 @@ draw.output = (function() {
                             .text(time);
     }
 
+    function dragstarted() {
+        d3.event.sourceEvent.stopPropagation();
+
+        isdragstarted = true;
+
+        selected_link = this;
+        
+        mousedown_link = this;
+        mousedown_link_mouse = d3.mouse(mousedown_link);
+    }
+
+    function dragged() {
+        d3.event.sourceEvent.stopPropagation();
+
+        drag_line.attr('d', 'M' + mousedown_link_mouse[0] + ',' + mousedown_link_mouse[1] + 'L' + d3.mouse(this)[0] + ',' + d3.mouse(this)[1])
+            .classed("hidden", false);
+    }
+
+    function dragended() {
+        d3.event.sourceEvent.stopPropagation();
+
+        isdragstarted = false;
+        drag_line.classed("hidden", true);
+
+    }
+
+    function mouseup() {
+
+        if (!mousedown_link) {
+            return;
+        }
+
+        if (isdragstarted) {
+            selected_link = this;
+
+            if (selected_link === mousedown_link) {
+                return;
+            }
+
+            var fromVertex = mousedown_link.id;
+            var toVertex = selected_link.id;
+
+            var first = parseInt(fromVertex.substr(1));
+            var second = parseInt(toVertex.substr(1));
+
+            var tempObj = {};
+
+            if (first < second) { //because edge id will always be #edge01/#edge45
+                tempObj["from"] = first;
+                tempObj["to"] = second;
+            }
+
+            else {
+                tempObj["from"] = second;
+                tempObj["to"] = first;
+            }
+
+            tempObj["weight"] = 0;
+
+            for(var i = 0; i < drawEdgeData.length; i++) {
+                var compObj = drawEdgeData[i];
+
+                if (first < second) {
+                    if (compObj.from === first && compObj.to === second) {
+                        return;
+                    }
+                }
+
+                else {
+                    if (compObj.from === second && compObj.to === first) {
+                        return;
+                    }
+                }
+            }
+
+            drawEdgeData.push(tempObj);
+
+            var circles = [];
+            circles.push(drawVertexData[first]);
+            circles.push(drawVertexData[second]);
+
+            var drawPoints = getThePoints(circles); //from geom.js
+
+            var drawPath = d3.select("#drawPanel").append("svg:path")
+                            .attr('d', 'M' + drawPoints[0] + ',' + drawPoints[1] + 'L' + drawPoints[2] + ',' + drawPoints[3]).attr("stroke", "#000000").attr("stroke-width", 2)
+                            .attr("fill", "none");
+            
+        }
+
+    }
+
+    function mouseover() {
+
+        if (!mousedown_link) {
+            return;
+        }
+
+        if (isdragstarted) {
+            d3.select(this).select("circle").attr("r", 25);
+        }
+    }
+
+
+    function mouseout() {
+        if (!mousedown_link) {
+            return;
+        }
+
+        d3.select(this).select("circle").attr("r", 20);
+    }
+
+
+    //getter and setter
+
+    function getDrawVertexData() {
+        return drawVertexData;
+    }
+
+    function setDrawVertexData(tempArray) {
+        drawVertexData = tempArray;
+    }
+
+    function getDrawSampleGraph() {
+        return drawSampleGraph;
+    }
+
+    function setDrawSampleGraph(tempArray) {
+        drawSampleGraph = tempArray;
+    }
+
+    function getDrawEdgeData() {
+        return drawEdgeData;
+    }
+
+    function setDrawEdgeData(tempArray) {
+        drawEdgeData = tempArray;
+    }
+
     return {
         drawGraph : drawGraph,
         removeGraph : removeGraph,
-        drawVertex : drawVertex
+        drawVertex : drawVertex,
+        drawDragLine : drawDragLine,
+        getDrawVertexData : getDrawVertexData,
+        setDrawVertexData : setDrawVertexData,
+        getDrawSampleGraph : getDrawSampleGraph,
+        setDrawSampleGraph : setDrawSampleGraph,
+        getDrawEdgeData : getDrawEdgeData,
+        setDrawEdgeData : setDrawEdgeData
     }
     
 }()); 

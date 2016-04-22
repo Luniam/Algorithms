@@ -10,16 +10,17 @@ ui.output = (function() {
     var speedbarValue;
     var speed = 1100; /* in milliseconds*/
 
-    var drawSampleGraph = [];
-    var drawVertexData = [];
-    var drawEdgeData = [];
-
     /*boolean values*/
     var directedGraph = 1;
     var undirectedGraph = 0;
     /*boolean values*/
 
     var graphType = undirectedGraph;
+
+
+    var drawSampleGraph = [];
+    var drawVertexData = [];
+    var drawEdgeData = [];
 
     function get_graph() {
         return graph;
@@ -144,8 +145,11 @@ ui.output = (function() {
 
         if (time == 0) {
             drawSampleGraph = [];
+            draw.output.setDrawSampleGraph(drawSampleGraph);
             drawVertexData = [];
-            drawEdgeData = [];
+            draw.output.setDrawVertexData(drawVertexData);
+            draw.output.drawEdgeData = [];
+            draw.output.setDrawEdgeData(drawEdgeData);
         }
 
         var coords = d3.mouse(that);
@@ -157,9 +161,10 @@ ui.output = (function() {
         tempObj["value"] = time; 
 
         drawVertexData.push(tempObj);
+        draw.output.setDrawVertexData(drawVertexData);
     }
 
-    
+
 
     function resetDrawPanel() {
         d3.select("#drawPanel").selectAll("g").remove();
@@ -167,6 +172,16 @@ ui.output = (function() {
         d3.select("#drawPanel").selectAll("text").remove();
         d3.select("#drawPanel").selectAll("line").remove();
         d3.select("#drawPanel").selectAll("path").remove();
+
+        drawSampleGraph = [];
+        drawVertexData = [];
+        drawEdgeData = [];
+
+        draw.output.setDrawSampleGraph(drawSampleGraph);
+        draw.output.setDrawVertexData(drawVertexData);
+        draw.output.setDrawEdgeData(drawEdgeData);
+
+        draw.output.drawDragLine();
     }
 
     function drawUserGraph(time, id) {
@@ -174,8 +189,10 @@ ui.output = (function() {
             return;
         }
 
-        drawSampleGraph = [drawVertexData, drawEdgeData, 20];
-        graph = new Graph(drawSampleGraph);
+        drawSampleGraph = [draw.output.getDrawVertexData(), draw.output.getDrawEdgeData(), 20];
+        draw.output.setDrawSampleGraph(drawSampleGraph); //kind of unnecessary
+
+        graph = new Graph(draw.output.getDrawSampleGraph());
 
         draw.output.drawGraph(graph, id);
 
