@@ -563,6 +563,10 @@ function startfn() {
         ui.output.drawVertexOnClick(this, time++);
     }); //d3 event
 
+    /*d3.select("#drawPanel").selectAll(".link2").on("click", function() {
+        draw.output.pathClick();
+    });*/
+
     $("#draw").on("click", function() {
         ui.output.resetDrawPanel();
         time = 0;

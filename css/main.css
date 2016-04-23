@@ -184,8 +184,12 @@ text {
 path.link {
   fill: none;
   stroke: #000;
-  stroke-width: 4px;
+  stroke-width: 5px;
   cursor: default;
+}
+
+path.link2 {
+    cursor: pointer;
 }
 
 path.link.dragline {

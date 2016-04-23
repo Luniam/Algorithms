@@ -18,6 +18,8 @@ draw.output = (function() {
     var selected_link_mouse = null;
     var mousedown_link_mouse = null;
 
+    var drawPath;
+
     function drawGraph(graph, pageId) {
         /*takes a Graph object and an id(string) e.g. "#viz"*/
 
@@ -174,6 +176,7 @@ draw.output = (function() {
                         .on("mouseup", mouseup)
                         .on("mouseover", mouseover)
                         .on("mouseout", mouseout);
+                        //.on("touchend", touchended)
 
         var circeNode = gnode.append("circle")
                             .attr({
@@ -282,13 +285,81 @@ draw.output = (function() {
 
             var drawPoints = getThePoints(circles); //from geom.js
 
-            var drawPath = d3.select("#drawPanel").append("svg:path")
-                            .attr('d', 'M' + drawPoints[0] + ',' + drawPoints[1] + 'L' + drawPoints[2] + ',' + drawPoints[3]).attr("stroke", "#000000").attr("stroke-width", 2)
+            drawPath = d3.select("#drawPanel").append("svg:path")
+                            .attr('d', 'M' + drawPoints[0] + ',' + drawPoints[1] + 'L' + drawPoints[2] + ',' + drawPoints[3]).attr("stroke", "#000000")
+                            .attr("stroke-width", 3)
                             .attr("fill", "none");
             
         }
 
     }
+
+
+    /*function touchended() {
+        //same as mouseup for touch devices
+
+        if (!mousedown_link) {
+            return;
+        }
+
+        if (isdragstarted) {
+            selected_link = this;
+
+            if (selected_link === mousedown_link) {
+                return;
+            }
+
+            var fromVertex = mousedown_link.id;
+            var toVertex = selected_link.id;
+
+            var first = parseInt(fromVertex.substr(1));
+            var second = parseInt(toVertex.substr(1));
+
+            var tempObj = {};
+
+            if (first < second) { //because edge id will always be #edge01/#edge45
+                tempObj["from"] = first;
+                tempObj["to"] = second;
+            }
+
+            else {
+                tempObj["from"] = second;
+                tempObj["to"] = first;
+            }
+
+            tempObj["weight"] = 0;
+
+            for(var i = 0; i < drawEdgeData.length; i++) {
+                var compObj = drawEdgeData[i];
+
+                if (first < second) {
+                    if (compObj.from === first && compObj.to === second) {
+                        return;
+                    }
+                }
+
+                else {
+                    if (compObj.from === second && compObj.to === first) {
+                        return;
+                    }
+                }
+            }
+
+            drawEdgeData.push(tempObj);
+
+            var circles = [];
+            circles.push(drawVertexData[first]);
+            circles.push(drawVertexData[second]);
+
+            var drawPoints = getThePoints(circles); //from geom.js
+
+            drawPath = d3.select("#drawPanel").append("svg:path")
+                            .attr('d', 'M' + drawPoints[0] + ',' + drawPoints[1] + 'L' + drawPoints[2] + ',' + drawPoints[3]).attr("stroke", "#000000")
+                            .attr("stroke-width", 3)
+                            .attr("fill", "none");
+            
+        }
+    }*/
 
     function mouseover() {
 
@@ -309,6 +380,11 @@ draw.output = (function() {
 
         d3.select(this).select("circle").attr("r", 20);
     }
+
+    /*function pathClick() {
+        d3.event.sourceEvent.stopPropagation();
+        console.log("a");
+    }*/
 
 
     //getter and setter
