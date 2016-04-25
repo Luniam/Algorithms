@@ -1,2 +1,2 @@
-python closure.py
+python closure.py bfs
 PAUSE

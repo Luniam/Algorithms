@@ -43,9 +43,18 @@ function startfn() {
     var resetId = 0;
 
     var speedTempValue = 0;
-    var speed = 500;
+    var speed = 500; //default speed
 
     var time = 0;
+
+    //extra variables for dfs
+
+    var timedfs = 0; //for measuring discovery time and finishing time
+
+    var playingBFS = "BFS";
+    var playingDFS = "DFS";
+
+    var version = playingBFS; //default to bfs
 
     /*end of the stupid variables*/
 
@@ -61,7 +70,13 @@ function startfn() {
         if (playState === paused) {
             playState = playing;
             changeIcon("pause");
-            bfs(resetId);
+            if (version === playingBFS) {
+                bfs(resetId);
+            }
+
+            else if (version === playingDFS) {
+                dfs(resetId);
+            }
         }
 
         else if (playState === playing) {
@@ -70,19 +85,34 @@ function startfn() {
         }
 
         else if (playState === finished) {
-            //bfsgo(); except selectSourceButton() in the following code
 
-            preBFS();
+            if (version === playingBFS) {
+               //bfsgo(); except selectSourceButton() in the following code
 
-            playState = playing;
-            changeIcon("pause");
+                preBFS();
 
-            speed = ui.output.getSpeedInMilliseconds(speedbarId);
+                playState = playing;
+                changeIcon("pause");
+
+                speed = ui.output.getSpeedInMilliseconds(speedbarId);
 
 
-            setTimeout(function() {
-                bfs(resetId);
-            }, speed);
+                setTimeout(function() {
+                    bfs(resetId);
+                }, speed);
+            }
+
+            else if (version === playingDFS) {
+
+                dfsgo();
+
+                playState = playing;
+                changeIcon("pause");
+            }
+        }
+
+        else {
+            alert("Please choose BFS or DFS from the left hand side menu.");
         }
     }
 
@@ -135,6 +165,8 @@ function startfn() {
 
     function bfsgo() {
         selectSourceButton(); //for sliding
+
+        version = playingBFS;
 
         preBFS();
 
@@ -463,11 +495,265 @@ function startfn() {
             G.colors[u] === black;
         }
 
+        console.log(animateList);
+        if (steps != 0) {
+            progressbarIncreaseValue = 100/steps;
+        }
+    }
+
+    //dfs specific code start
+
+    function dfsSim() {
+
+        steps = 0;
+
+        for (var u = 0; u < G.V(); u++) {
+            G.colors[u] = white;
+            G.parents[u] = -1;
+        }
+
+        timedfs = 0;
+
+        for (var u = 0; u < G.V(); u++) {
+            if (G.colors[u] === white) {
+                dfsVisit(u);
+            }
+        }
+        console.log(animateList);
 
         if (steps != 0) {
             progressbarIncreaseValue = 100/steps;
         }
     }
+
+    function dfsVisit(u) {
+        timedfs++;
+
+        //u.d = time omitted
+
+        var temp = {};
+        temp[u] = [];
+        steps++;
+
+        G.colors[u] = gray;
+
+        var adj = G.getAdj(u);
+
+        for(var i = 0; i < adj.length; i++) {
+
+            var v = adj[i];
+
+            if (G.colors[v] === white) {
+                G.parents[v] = u;
+                temp[u].push(v);
+                animateList.push(temp);
+
+                steps++;
+
+                temp = {};
+                temp[u] = [];
+                dfsVisit(v);
+            }
+        }
+
+        animateList.push(temp);
+
+        G.colors[u] = black;
+        timedfs++;
+        //u.f = time omitted
+    }
+
+    function dfsgo() {
+        resetId++;
+        resetValues();
+
+        version = playingDFS;
+
+        if (played) {
+            ui.output.resetGraph(G);
+            played = false;
+        }
+
+        playState = playing;
+        changeIcon("pause");
+
+        dfsSim();
+
+        //test
+
+        speed = ui.output.getSpeedInMilliseconds(speedbarId);
+
+        setTimeout(function() {
+            dfs(resetId);
+        }, speed);
+    }
+
+
+    function dfs(id) {
+       
+        played = true;
+        
+        if ( playState === playing && id == resetId) {
+
+            
+            if (turn == "vertex") {
+
+                vertexTurnDFS();
+
+                speed = ui.output.getSpeedInMilliseconds(speedbarId);
+    
+
+                setTimeout(function() {
+                    dfs(id);
+                }, speed);
+            }
+
+            else if (turn == "edge") {
+
+                edgeTurnDFS();
+
+                speed = ui.output.getSpeedInMilliseconds(speedbarId);
+    
+
+                setTimeout(function() {
+                    dfs(id);
+                }, speed);
+            }
+        }
+
+        else { return; }
+    }
+
+    function vertexTurnDFS() {
+
+        if (vertexMarker >= animateList.length) {
+            playState = finished;
+            changeIcon("repeat");
+            return;
+        }
+
+        var tempVertex = Object.keys(animateList[vertexMarker])[0];
+
+        var vertex = "#vertex" + tempVertex;
+        var text = "#text" + tempVertex;
+
+        var tempObj = {};
+        var tempArray = [];
+        tempArray.push(vertex);
+        tempArray.push(text);
+        tempObj["vertex"] = tempArray;
+        mainStack.push(tempObj);
+
+        speed = ui.output.getSpeedInMilliseconds(speedbarId);       
+
+        d3.select(vertex).transition().style({
+            "fill" : "#808080",
+            "stroke" : "#FF1919"
+        }).duration(speed);
+
+        d3.select(text).transition().style({
+            "fill" : "rgb(255, 255, 255)"
+        }).duration(speed);
+
+        setTimeout(function() {
+            d3.select(vertex).transition().style({
+                "fill" : "#808080",
+                "stroke" : "#808080"
+            }).duration(speed);
+
+            d3.select(text).transition().style({
+                "fill" : "rgb(0, 0, 0)"
+            }).duration(speed);
+
+        }, speed);
+
+        turn = "edge";
+
+        ui.output.changeProgressBar(progressbarId, progressbarIncreaseValue);
+    }
+
+    function edgeTurnDFS() {
+
+        var tempVertex = Object.keys(animateList[vertexMarker])[0];
+        var tempList = animateList[vertexMarker][tempVertex];
+        
+        if (tempList.length == 0) {
+            turn = "vertex";
+            previousEdgeMarker.push(edgeMarker);
+            edgeMarker = 0;
+            vertexMarker++;
+
+            var tempObj = {};
+            var tempArray = [];
+            tempObj["edgeTurn"] = tempArray;
+            mainStack.push(tempObj);
+
+            var vertexTemp = "#vertex" + tempVertex;
+            var textTemp = "#text" + tempVertex; 
+            d3.select(vertexTemp).transition().style({
+                "fill" : "#F38630",
+                "stroke" : "#F38630"
+            }).duration(speed);
+
+            d3.select(textTemp).transition().style({
+                "fill" : "rgb(255, 255, 255)"
+            }).duration(speed);
+        }
+
+        else {
+
+            var vertex2 = "#vertex" + tempList[edgeMarker];
+
+            var edge = "#edge";
+
+            if (parseInt(tempVertex) < tempList[edgeMarker]) {
+                edge = edge + tempVertex + tempList[edgeMarker];
+            }
+
+            else {
+                edge = edge + tempList[edgeMarker] + tempVertex;
+            }
+
+            var tempObj = {};
+            var tempArray = [];
+            tempArray.push(vertex2);
+            tempArray.push(edge);
+            tempObj["edge"] = tempArray;
+            mainStack.push(tempObj);
+
+            speed = ui.output.getSpeedInMilliseconds(speedbarId);
+
+
+            d3.select(edge).transition().style({
+                "stroke" : "rgb(0, 128, 0)",
+                "stroke-width" : 5
+            }).duration(speed);
+
+            d3.select(vertex2).transition().style({
+                "fill" : "#808080",
+                "stroke" : "#808080"
+            }).delay(50).duration(speed);
+
+            edgeMarker++;
+
+            if (edgeMarker >= tempList.length) {
+                turn = "vertex";
+                previousEdgeMarker.push(edgeMarker);
+                edgeMarker = 0;
+                vertexMarker++;
+
+                var tempObj = {};
+                var tempArray = [];
+                tempObj["edgeTurn2"] = tempArray;
+                mainStack.push(tempObj);
+            }
+
+            ui.output.changeProgressBar(progressbarId, progressbarIncreaseValue);
+        }
+    }
+
+
+    //dfs specific code end
 
     function resetValues() {
         turn = "vertex";
@@ -540,6 +826,8 @@ function startfn() {
     $("#backward").on("click", backwardBTN);
 
     $("#runBFS").on("click", selectSourceButton);
+
+    $("#runDFS").on("click", dfsgo);
 
     $("#startBFS").on("click", bfsgo); //start main bfs
 
