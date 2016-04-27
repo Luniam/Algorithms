@@ -325,16 +325,29 @@ function startfn() {
 
     function forwardBTN() {
         
-        if (vertexMarker <= G.V()-1 && playState === paused) {
+        if (version === playingBFS) {
 
-            if (turn == "vertex") {
-                vertexTurn();
+            if (vertexMarker <= G.V()-1 && playState === paused) {
+
+                if (turn == "vertex") {
+                    vertexTurn();
+                }
+
+                else if (turn == "edge") {
+                    edgeTurn();
+                }
+
+            }
+        }
+
+        else if (version === playingDFS && playState === paused) {
+            if (turn === "vertex") {
+                vertexTurnDFS();
             }
 
-            else if (turn == "edge") {
-                edgeTurn();
+            else if (turn === "edge") {
+                edgeTurnDFS();
             }
-
         }
     }
     
@@ -495,7 +508,6 @@ function startfn() {
             G.colors[u] === black;
         }
 
-        console.log(animateList);
         if (steps != 0) {
             progressbarIncreaseValue = 100/steps;
         }
@@ -519,8 +531,8 @@ function startfn() {
                 dfsVisit(u);
             }
         }
-        console.log(animateList);
-
+        /*console.log(animateList);
+        console.log(steps);*/
         if (steps != 0) {
             progressbarIncreaseValue = 100/steps;
         }
@@ -533,7 +545,7 @@ function startfn() {
 
         var temp = {};
         temp[u] = [];
-        steps++;
+        //steps++;
 
         G.colors[u] = gray;
 
@@ -548,7 +560,7 @@ function startfn() {
                 temp[u].push(v);
                 animateList.push(temp);
 
-                steps++;
+                steps+=2;
 
                 temp = {};
                 temp[u] = [];
@@ -557,7 +569,7 @@ function startfn() {
         }
 
         animateList.push(temp);
-
+        steps++;
         G.colors[u] = black;
         timedfs++;
         //u.f = time omitted
