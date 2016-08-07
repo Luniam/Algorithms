@@ -21,6 +21,10 @@
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
+
+            .tempWarning {
+                font-size: 1.15em;
+            }
         </style>
         <!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
         <link rel="stylesheet" href="css/main.css">
@@ -69,11 +73,18 @@
                 <div class="col-md-4">
 
                     <div class="row">
+                        <div class="alert alert-danger">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <span class="tempWarning">This section is not complete yet. Sorry for your inconvenience. Meanwhile, you can play with the randomize option.</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         
                     <div class="col-md-4">
                         
                         <ul class="nav nav-pills nav-stacked leftSidebar">
-                              <li  role="presentation" class="bar">Merge Sort</li>
+                              <li  role="presentation" class="bar" id="mergeSort">Merge Sort</li>
                               <li  role="presentation" class="bar">Quick Sort</li>
                               <li  role="presentation" class="bar" id="randomize">Randomize</li>
                         </ul>
@@ -145,6 +156,7 @@
         <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
         <script>window.d3 || document.write('<script src="js/vendor/d3.min.js"><\/script>')</script>
         <script src="js/commonui.js"></script>
+        <script src="js/sortWidget.js"></script>
         <script src="js/sort.js"></script>
         <!-- <script src="js/autorefresh.js"></script> -->
     </body>
